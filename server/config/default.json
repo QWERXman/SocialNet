@@ -1,0 +1,6 @@
+{
+  "port": 5000,
+  "jwtSecret": "qwerx social",
+  "mongoUri": "mongodb+srv://QWERXman:wasdferruM3@cluster0-3dyvh.mongodb.net/Cluster0?retryWrites=true&w=majority",
+  "baseUrl": "http://localhost:5000"
+}

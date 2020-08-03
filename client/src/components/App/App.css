@@ -1,0 +1,49 @@
+.MainContainer {
+  display: flex;
+  margin-top: 14px;
+}
+
+.ContentArea {
+  flex-grow: 1;
+  margin-left: 8px;
+}
+
+.HeaderLine {
+  position: absolute;
+  height: 46px;
+  width: 100%;
+  display: flex;
+  background-color: #f79847;
+  margin-left: calc(-100vw + 100%);
+  font-family: 'Lato', 'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.Header {
+  font-size: 32px;
+  letter-spacing: 5px;
+  line-height: 25px;
+  position: relative;
+  padding-top: 8px;
+  display: flex;
+}
+
+.HeaderIcon {
+  padding-top: 2px;
+  margin-right: 14px!important;
+}
+
+.UserName {
+  text-align: right;
+  flex-grow: 1;
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding-top: 2px;
+}
+
+.Title {
+  padding-top: 2px;
+}
+
+.AppName {
+  flex-grow: 1;
+}
