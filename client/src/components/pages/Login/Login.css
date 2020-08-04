@@ -1,0 +1,8 @@
+.LoginPage {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.LoginPage .ant-tabs-nav {
+    padding-left: 150px;
+}

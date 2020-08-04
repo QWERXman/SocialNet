@@ -1,4 +1,9 @@
-.MainContainer {
+.AppContainer {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.ContentContainer {
   display: flex;
   margin-top: 14px;
 }
@@ -13,12 +18,13 @@
   height: 46px;
   width: 100%;
   display: flex;
-  background-color: #f79847;
+  background-color: #FD004D;
   margin-left: calc(-100vw + 100%);
   font-family: 'Lato', 'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 .Header {
+  color: #06F7EF;
   font-size: 32px;
   letter-spacing: 5px;
   line-height: 25px;
@@ -46,4 +52,5 @@
 
 .AppName {
   flex-grow: 1;
+  margin-left: 24px;
 }

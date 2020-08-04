@@ -4,6 +4,7 @@ const config = require('config')
 const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
+const Profile = require('../models/Profile')
 const router = Router()
 
 
@@ -11,7 +12,7 @@ const router = Router()
 router.post(
     '/register',
     [
-        check('email', 'Некорректный email').isEmail(),
+        check('username', 'Некорректный username').exists(),
         check('password', 'Минимальная длина пароля 6 символов')
             .isLength({ min: 6 })
     ],
@@ -26,18 +27,20 @@ router.post(
                 })
             }
 
-            const {email, password} = req.body
+            const {username, password} = req.body
 
-            const candidate = await User.findOne({ email })
+            const candidate = await User.findOne({ username })
 
             if (candidate) {
                 return res.status(400).json({ message: 'Такой пользователь уже существует' })
             }
 
             const hashedPassword = await bcrypt.hash(password, 12)
-            const user = new User({ email, password: hashedPassword })
+            const user = new User({ username, password: hashedPassword })
 
             await user.save()
+            const profile = new Profile({ name: username, userId: user.id})
+            await profile.save()
 
             res.status(201).json({ message: 'Пользователь создан' })
 
@@ -50,7 +53,7 @@ router.post(
 router.post(
     '/login',
     [
-        check('email', 'Введите корректный email').normalizeEmail().isEmail(),
+        check('username', 'Введите корректный username').exists(),
         check('password', 'Введите пароль').exists()
     ],
     async (req, res) => {
@@ -64,9 +67,9 @@ router.post(
                 })
             }
 
-            const {email, password} = req.body
+            const {username, password} = req.body
 
-            const user = await User.findOne({ email })
+            const user = await User.findOne({ username })
 
             if (!user) {
                 return res.status(400).json({ message: 'Пользователь не найден' })

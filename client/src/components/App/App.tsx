@@ -1,73 +1,58 @@
-import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
-import { Route, Switch, Router } from "react-router-dom";
-import { Icon } from "semantic-ui-react";
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, {useEffect} from 'react';
+import Axios from 'axios';
+import { Router } from "react-router-dom";
+import history from "constants/history";
+import { Routes as RoutesItems } from "routes/routes";
+import Routes from "components/Routes/Routes";
+import ContentArea from "components/ContentArea/ContentArea";
+import Login from "components/pages/Login/Login";
+import User from "components/User/User";
+import { isAuthenticated } from "service/auth";
+import Profile from "service/profile";
 
 import './App.css';
+import {setProfileData} from "../../store/actions/pages/Profile/profileActions";
+import {useDispatch} from "react-redux";
 
-interface IAppProps {
+if (window.localStorage.uathToken) {
+    Axios.defaults.headers = {
+        'Authorization': 'Token ' + window.localStorage.uathToken,
+        'Content-Type': 'application/json'
+    }
 }
 
-interface IAppState {
-}
+const App = () => {
+    const dispatch = useDispatch();
 
-class App extends Component<IAppProps, IAppState> {
+    useEffect(() => {
+        Profile.getSelf().then((response) => {
+            dispatch(setProfileData(response));
+        });
+    }, [])
 
-    constructor(props: IAppProps) {
-        super(props);
-    }
-
-    componentWillMount() {
-
-    }
-
-    render() {
+    if (!isAuthenticated()) {
         return (
-            <div>
-                <div className="HeaderLine"></div>
-                <Container>
-                    <div className="Header">
-                        <Icon name='handshake outline' className="HeaderIcon" />
-                        <div className="AppName">Friends</div>
-                        {/*<Login tryLogin={tryLogin} logout={logout}/>*/}
-                    </div>
-                    {/*<Router history={history}>*/}
-                    {/*    <div className="MainContainer">*/}
-                    {/*        <Routes*/}
-                    {/*            items={this.props.items}*/}
-                    {/*            changeRoute={this.props.changeRoute}/>*/}
-                    {/*        <div className="ContentArea">*/}
-                    {/*            <Switch>*/}
-                    {/*                {*/}
-                    {/*                    RoutesItems.map((route: RoutesEntitie) => (*/}
-                    {/*                        <Route*/}
-                    {/*                            path={route.path}*/}
-                    {/*                            component={route.component}*/}
-                    {/*                            key={route.path} />))*/}
-                    {/*                }*/}
-                    {/*            </Switch>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</Router>*/}
-                </Container>
-            </div>
-        );
+            <Login />
+        )
     }
-}
 
+    return (
+        <div>
+            <div className="HeaderLine"/>
+            <div className="AppContainer">
+                <div className="Header">
+                    <div className="AppName">SN</div>
+                    <User />
+                </div>
+                <Router history={history}>
+                    <div className="ContentContainer">
+                        <Routes items={RoutesItems}/>
+                        <ContentArea/>
+                    </div>
+                </Router>
+            </div>
+        </div>
+    )
+};
 
-const mapStateToProps = () => ({
-    // items: RoutesItems
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-    // ...bindActionCreators(newsActions, dispatch),
-    // ...bindActionCreators(routesActions, dispatch),
-});
-export default App
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps,
-// )(App);
+export default App;

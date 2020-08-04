@@ -1,0 +1,12 @@
+.RouteItem {
+    display: flex;
+    color: #000;
+}
+
+.RouteItem:hover {
+    color: #000;
+}
+
+.RoutesList {
+    width: 150px;
+}
