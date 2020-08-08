@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import { Form, Input, Button, Alert } from 'antd';
-import { login, registration } from 'service/auth'
+import { registration } from 'service/auth'
 import {formItemLayout, tailFormItemLayout} from "../SingIn/SingIn";
 
 const SingUp = () => {

@@ -1,0 +1,21 @@
+.footerDivider.ant-divider-horizontal {
+    width: 520px;
+    margin: 10px 0 10px -24px;
+}
+
+.EditProfileForm {
+    position: relative;
+}
+
+.EditProfileForm-Form {
+    display: flex;
+    flex-direction: column;
+}
+
+.EditProfileForm-Loader.ant-spin-spinning {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    z-index: 10;
+}
+

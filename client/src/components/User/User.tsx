@@ -1,17 +1,14 @@
 import React, {useCallback} from "react";
 import { Popover, Button } from "antd";
-import { logout } from "service/auth"
-import { IProfileEntity } from 'entities/Profile'
+import { logout } from "service/auth";
+import {IStore} from 'store/store';
 import {useSelector} from "react-redux";
 import "./User.css"
 
-interface IState {
-    profile: IProfileEntity
-}
 
 const User = () => {
-    const userName = useSelector((state: IState) => state.profile.name)
-    const userSecondName = useSelector((state: IState) => state.profile.secondName)
+    const userName = useSelector((state: IStore) => state.profile.name)
+    const userSecondName = useSelector((state: IStore) => state.profile.secondName)
 
     const userLogout = useCallback(() => logout(), []);
 

@@ -1,0 +1,11 @@
+.ConfigureAvatar {
+    display: flex;
+}
+
+.ConfigureAvatar-ColumnFields {
+    width: 70%;
+}
+
+.ConfigureAvatar-ColumnAvatar {
+    width: 30%;
+}

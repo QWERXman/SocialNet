@@ -7,7 +7,7 @@ import Routes from "components/Routes/Routes";
 import ContentArea from "components/ContentArea/ContentArea";
 import Login from "components/pages/Login/Login";
 import User from "components/User/User";
-import { isAuthenticated } from "service/auth";
+import {isAuthenticated, logout} from "service/auth";
 import Profile from "service/profile";
 
 import './App.css';
@@ -25,9 +25,13 @@ const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        Profile.getSelf().then((response) => {
-            dispatch(setProfileData(response));
-        });
+        if (isAuthenticated()) {
+            Profile.getSelf().then((response) => {
+                dispatch(setProfileData(response));
+            }).catch(() => {
+                logout();
+            });
+        }
     }, [])
 
     if (!isAuthenticated()) {

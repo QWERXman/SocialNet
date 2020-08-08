@@ -7,7 +7,7 @@ const schema = new Schema({
     avatar: {type: String},
     status: {type: String},
     birthday: {type: Date},
-    city: {type: Date},
+    city: {type: String},
     userId: { type: Types.ObjectId, ref: 'User', required: true }
 })
 
