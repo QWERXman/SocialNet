@@ -39,8 +39,8 @@ const ConfigureAvatar = () => {
         setLoaderVisible(true);
         ProfileService.setAvatar(data).then((editedAvatar:AvatarProps) => {
             dispatch(setProfileAvatar(editedAvatar));
+            setLoaderVisible(false);
         });
-        setLoaderVisible(false);
     }, []);
 
     const handleValuesChange = useCallback((changedValues) => {
@@ -52,9 +52,9 @@ const ConfigureAvatar = () => {
     }, []);
 
     return (
-        <div className="ConfigureAvatar">
-            <div className="ConfigureAvatar-ColumnFields">
-                <Spin spinning={loaderVisible}>
+        <Spin spinning={loaderVisible}>
+            <div className="ConfigureAvatar">
+                <div className="ConfigureAvatar-ColumnFields">
                     <Form
                         labelCol={{
                             xs: { span: 24 },
@@ -96,38 +96,38 @@ const ConfigureAvatar = () => {
                             <Col span={12}><Fields.HatColor initialValue={hatColor}/></Col>
                         </Row>
                         <Row>
-                            <Col span={24}><Fields.Accessory initialValue={accessory}/></Col>
+                            <Col span={12}><Fields.Accessory initialValue={accessory}/></Col>
                         </Row>
 
                         <Button type="primary" htmlType="submit">
                             Save
                         </Button>
                     </Form>
-                </Spin>
+                </div>
+                <div className="ConfigureAvatar-ColumnAvatar">
+                    <BigHead
+                        accessory={accessory}
+                        body={body}
+                        circleColor="blue"
+                        clothing={clothing}
+                        clothingColor={clothingColor}
+                        eyebrows={eyebrows}
+                        eyes={eyes}
+                        facialHair={facialHair}
+                        graphic={graphic}
+                        hair={hair}
+                        hairColor={hairColor}
+                        hat={hat}
+                        hatColor={hatColor}
+                        lashes={lashes}
+                        lipColor={lipColor}
+                        mask={mask}
+                        mouth={mouth}
+                        skinTone={skinTone}
+                    />
+                </div>
             </div>
-            <div className="ConfigureAvatar-ColumnAvatar">
-                <BigHead
-                    accessory={accessory}
-                    body={body}
-                    circleColor="blue"
-                    clothing={clothing}
-                    clothingColor={clothingColor}
-                    eyebrows={eyebrows}
-                    eyes={eyes}
-                    facialHair={facialHair}
-                    graphic={graphic}
-                    hair={hair}
-                    hairColor={hairColor}
-                    hat={hat}
-                    hatColor={hatColor}
-                    lashes={lashes}
-                    lipColor={lipColor}
-                    mask={mask}
-                    mouth={mouth}
-                    skinTone={skinTone}
-                />
-            </div>
-        </div>
+        </Spin>
     );
 }
 

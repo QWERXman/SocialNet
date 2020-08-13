@@ -5,7 +5,9 @@
 
 .ContentContainer {
   display: flex;
+  overflow: hidden;
   margin-top: 14px;
+  text-overflow: ellipsis;
 }
 
 .ContentArea {
@@ -53,4 +55,12 @@
 .AppName {
   flex-grow: 1;
   margin-left: 24px;
+}
+
+.Routes {
+  width: 120px;
+}
+
+.ContentArea {
+  width: calc(100% - 120px);
 }

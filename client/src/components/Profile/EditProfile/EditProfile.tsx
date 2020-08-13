@@ -18,7 +18,7 @@ const EditProfile = () => {
         <>
             <Button
                 className="EditButton"
-                type="primary"
+                type="link"
                 shape="round"
                 icon={<EditOutlined translate="span"/>}
                 size="small"

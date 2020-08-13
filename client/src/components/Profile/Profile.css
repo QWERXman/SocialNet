@@ -1,0 +1,39 @@
+.Profile {
+    display: flex;
+    min-width: 450px;
+}
+
+.ProfileData {
+    flex-grow: 1;
+}
+
+.ProfileAvatar {
+    width: 200px;
+}
+
+.ProfileData-Separator {
+    height: 4px;
+    border: 2px;
+    border-radius: 14px;
+    background: #fd044c;
+}
+
+.ProfileData-UserName {
+    font-size: 26px;
+    flex-grow: 1;
+}
+
+
+.ProfileData-EditProfile {
+    height: 28px;
+}
+
+.EditButton {
+    margin-top: 4px;
+    margin-left: -12px;
+}
+
+.PostCreator {
+    margin-top: 12px;
+}
+

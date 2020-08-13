@@ -1,13 +1,22 @@
 import React, {useCallback, useState} from "react";
-import {BigHead} from "@bigheads/core";
+import {AvatarProps, BigHead} from "@bigheads/core";
 import {Button, Modal, Tooltip} from "antd";
 import ConfigureAvatar from "./ConfigureAvatar/ConfigureAvatar";
 import {useSelector} from "react-redux";
 import {IStore} from "store/store";
 
-const Avatar = () => {
+
+interface IAvatarProps {
+    configurable?: boolean,
+    config?: AvatarProps
+}
+
+const Avatar = ({configurable=false, config}: IAvatarProps) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const avatar = useSelector((store: IStore) => store.profile.avatar);
+    const selfAvatar = useSelector((store: IStore) => store.profile.avatar);
+
+    const avatar = config ? config : selfAvatar;
+    const tooltipStyle = configurable ? {} : {display: 'none'}
 
     const handleConfigureAvatar = useCallback(() => {
         setModalVisible(true);
@@ -18,9 +27,10 @@ const Avatar = () => {
     }, []);
 
     return (
-        <div>
+        <div className="Avatar">
             <Tooltip
                 placement="bottom"
+                overlayStyle={tooltipStyle}
                 title={
                     <Button type="link" onClick={handleConfigureAvatar}>Configure</Button>
                 }>
@@ -46,15 +56,19 @@ const Avatar = () => {
                 />
             </Tooltip>
 
-            <Modal
-                title="Edit your profile avatar"
-                width={1200}
-                visible={modalVisible}
-                footer={null}
-                onCancel={handleCancel}
-            >
-                <ConfigureAvatar />
-            </Modal>
+            {
+                configurable &&
+                <Modal
+                    title="Edit your profile avatar"
+                    width={1200}
+                    visible={modalVisible}
+                    footer={null}
+                    onCancel={handleCancel}
+                >
+                    <ConfigureAvatar />
+                </Modal>
+            }
+
         </div>
     )
 }

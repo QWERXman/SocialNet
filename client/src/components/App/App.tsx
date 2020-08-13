@@ -50,8 +50,8 @@ const App = () => {
                 </div>
                 <Router history={history}>
                     <div className="ContentContainer">
-                        <Routes items={RoutesItems}/>
-                        <ContentArea/>
+                        <div className="Routes"><Routes items={RoutesItems}/></div>
+                        <div className="ContentArea"><ContentArea/></div>
                     </div>
                 </Router>
             </div>

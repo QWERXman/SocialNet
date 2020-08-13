@@ -5,7 +5,7 @@ import React from "react";
 
 const ContentArea = () => {
    return (
-       <div className="ContentArea">
+       <>
            <Switch>
                {
                    RoutesItems.map((route: RoutesEntity) => (
@@ -15,7 +15,7 @@ const ContentArea = () => {
                            key={route.path} />))
                }
            </Switch>
-       </div>
+       </>
 )};
 
 export default ContentArea;

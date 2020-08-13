@@ -23,6 +23,7 @@ app.use(express.json({ extended: true }))
 
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/profile', require('./routes/profileRoutes'))
+app.use('/api/post', require('./routes/postRoutes'))
 // app.use('/api/link', require('./routes/link.routes'))
 // app.use('/t', require('./routes/redirect.routes'))
 

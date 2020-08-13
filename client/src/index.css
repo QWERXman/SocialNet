@@ -17,11 +17,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
 }
-
-.Flexbox {
-  display: flex;
-}
-
-.FlexGrow-1 {
-  flex-grow: 1;
-}
