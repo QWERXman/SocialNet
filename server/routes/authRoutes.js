@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 const Profile = require('../models/Profile')
+const Avatar = require('../models/ProfileAvatar')
 const router = Router()
 
 
@@ -41,6 +42,8 @@ router.post(
             await user.save()
             const profile = new Profile({ name: username, userId: user.id})
             await profile.save()
+            const avatar = new Avatar({ profileId: profile.id })
+            await avatar.save()
 
             res.status(201).json({ message: 'Пользователь создан' })
 

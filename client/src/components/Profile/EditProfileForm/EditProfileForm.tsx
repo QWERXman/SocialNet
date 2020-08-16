@@ -27,7 +27,7 @@ const EditProfileForm = ({closeModal}: IProps) => {
 
     const handleSaveData = useCallback(async ({name, secondName, status, birthday, city, email}) => {
         setLoaderVisible(true);
-        const profileData = await Profile.setSelf({name, secondName, status, birthday, city, email});
+        const profileData = await Profile.setSelf({_id: '', name, secondName, status, birthday, city, email});
         dispatch(setProfileData(profileData));
         setLoaderVisible(false);
         closeModal();

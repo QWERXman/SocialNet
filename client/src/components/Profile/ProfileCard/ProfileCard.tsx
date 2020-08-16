@@ -6,7 +6,7 @@ import {IProfileEntity} from "entities/Profile";
 import Profile from "../Profile";
 
 interface IProfileCard {
-    avatar: AvatarProps,
+    avatar?: AvatarProps,
     configurable: boolean,
     profile: IProfileEntity
 }

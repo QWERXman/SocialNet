@@ -18,8 +18,8 @@ const Routes = ({items}: IRoutesProps) => {
                 renderItem={item => (
                     <List.Item key={item.id}>
                         <Link to={item.path} className="RouteItem">
-                            {/*<Icon name={item.icon}/>*/}
-                            {item.text}
+                            <item.icon translate="true" className="RouteItem-Icon"/>
+                            <span className="RouteItem-Text">{item.text}</span>
                         </Link>
                     </List.Item>
                 )}

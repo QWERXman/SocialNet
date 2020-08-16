@@ -4,7 +4,8 @@ import {ISetProfileData} from 'store/actions/pages/Profile/profileActions'
 import moment from 'moment'
 
 const initialState: IProfileEntity = {
-    name: ''
+    name: '',
+    _id: ''
 };
 
 export default (state = initialState, action:ISetProfileData) => {

@@ -1,5 +1,5 @@
-import React from "react";
-import {Col, Row} from "antd";
+import React, {useCallback} from "react";
+import {Button, Col, Row} from "antd";
 import Avatar from "components/Avatar/Avatar";
 import EditProfile from "components/Profile/EditProfile/EditProfile";
 import PostCreator from "components/Post/PostCreator/PostCreator";
@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 import {IStore} from "store/store";
 
 import "./Profile.css"
+import {FriendsService} from "../../service/friends";
 
 interface IProfile {
     profileData: IProfileEntity,
@@ -21,6 +22,10 @@ const Profile = ({profileData, avatar}: IProfile) => {
     const birthday = profileData.birthday && moment(profileData.birthday).format('DD.MM.YYYY')
 
     const isMyProfile = myProfileId === profileData._id;
+
+    const addFriend = useCallback(() => {
+        FriendsService.addFriend({profileId: profileData._id})
+    }, []);
 
     return (
         <div className="Profile">
@@ -58,7 +63,7 @@ const Profile = ({profileData, avatar}: IProfile) => {
                     {
                         isMyProfile
                             ? <PostCreator className="PostCreator"/>
-                            : 'Add to friends'
+                            : <Button onClick={addFriend}>Add to friends</Button>
                     }
                 </div>
             </div>

@@ -2,7 +2,7 @@ import moment from "moment";
 import {AvatarProps} from "@bigheads/core";
 
 export interface IProfileEntity {
-    _id?: string;
+    _id: string;
     name: string,
     secondName?: string,
     email?: string,

@@ -10,7 +10,7 @@ const router = Router()
 router.get('/self', authMiddleware, async (req, res) => {
     try {
         const profile = await Profile.findOne({ userId: req.user.userId });
-        const avatar = (await ProfileAvatar.findOne({ profileId: profile.id })) || {};
+        const avatar = await ProfileAvatar.findOne({ profileId: profile.id });
 
         res.json({...profile.toJSON(), avatar: avatar})
     } catch (e) {

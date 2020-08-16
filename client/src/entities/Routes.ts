@@ -1,10 +1,9 @@
+import Icon from "@ant-design/icons/lib";
+
 export interface RoutesEntity {
     id: number,
     text: string,
-    icon: 'newspaper outline'
-        | 'address card outline'
-        | 'envelope outline'
-        | 'address book outline',
+    icon: typeof Icon,
     component: any,
     path: string
 }

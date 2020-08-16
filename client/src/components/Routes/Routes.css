@@ -10,3 +10,12 @@
 .RoutesList {
     width: 150px;
 }
+
+.RouteItem-Icon {
+    margin-right: 12px;
+    padding-top: 4px;
+}
+
+.RouteItem-Text {
+    flex-grow: 1;
+}

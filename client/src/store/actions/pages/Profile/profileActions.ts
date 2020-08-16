@@ -1,15 +1,10 @@
 import {SET_PROFILE_AVATAR, SET_PROFILE_DATA} from "./profileActionTypes";
 import { IProfileEntity } from "entities/Profile";
 import { IBaseActionType } from "store/actions/base";
-import {IProfileAvatar} from "entities/ProfileAvatar";
 import {AvatarProps} from "@bigheads/core";
 
 export interface ISetProfileData extends IBaseActionType{
     profileData: IProfileEntity
-}
-
-export interface ISetProfileAvatar extends IBaseActionType{
-    avatar: AvatarProps
 }
 
 export const setProfileData = (profileData: IProfileEntity): ISetProfileData => {
@@ -24,6 +19,7 @@ export const setProfileAvatar = (avatar: AvatarProps): ISetProfileData => {
         type: SET_PROFILE_AVATAR,
         profileData: {
             name: '',
+            _id: '',
             avatar
         },
     }
