@@ -40,7 +40,7 @@ router.post(
             const user = new User({ username, password: hashedPassword })
 
             await user.save()
-            const profile = new Profile({ name: username, userId: user.id})
+            const profile = new Profile({ name: username, userId: user.id, email: `${username}@ya.com`})
             await profile.save()
             const avatar = new Avatar({ profileId: profile.id })
             await avatar.save()

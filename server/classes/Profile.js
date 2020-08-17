@@ -1,17 +1,24 @@
-const ProfileModel = require('server/models/Profile')
+const ProfileModel = require('./../models/Profile')
 
 class Profile {
-    async constructor(userId) {
+    constructor(userId) {
         this.userId = userId;
-        this.profileModel = await ProfileModel.findOne({ userId: userId });
     }
 
-    async static create(userId, name, secondName, status, birthday, city, email) {
-        const profile = new Profile({userId, name, secondName, status, birthday, city, email});
+    async fillFromDB() {
+        this.profileModel = await ProfileModel.findOne({ userId: this.userId });
+        return this;
+    }
+
+    get id() {
+        return this.profileModel._id;
+    }
+
+    static async create(userId, name, secondName, status, birthday, city, email) {
+        const profile = new ProfileModel({userId, name, secondName, status, birthday, city, email});
         await profile.save();
         this.profileModel = profile;
-
-        return profile;
+        return this;
     }
 
     set(name= '', secondName = '', status= '', birthday= new Date(), city= '', email='') {
@@ -21,10 +28,18 @@ class Profile {
         this.profileModel.birthday = birthday;
         this.profileModel.city = city;
         this.profileModel.email = email;
+
+        return this;
     }
 
     save() {
         return this.profileModel.save();
     }
 
+    toJSON() {
+        return this.profileModel.toJSON();
+    }
+
 }
+
+module.exports = Profile;

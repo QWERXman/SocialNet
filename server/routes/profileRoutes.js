@@ -1,52 +1,29 @@
 const {check} = require('express-validator')
 const { Router } = require('express')
 const { authMiddleware } = require('../middleware/authMiddleware')
-const Profile = require('../models/Profile')
+const ProfileModel = require('../models/Profile')
+const Profile = require('../classes/Profile')
 const ProfileAvatar = require("../models/ProfileAvatar");
 const {jsonParser} = require("config");
+const ProfileProxy = require('../proxy/profile')
 const router = Router()
 
-// /api/profile/
-router.get('/self', authMiddleware, async (req, res) => {
-    try {
-        const profile = await Profile.findOne({ userId: req.user.userId });
-        const avatar = await ProfileAvatar.findOne({ profileId: profile.id });
+// /api/profile/self
+router.get('/self', authMiddleware, ProfileProxy.getMyProfile);
 
-        res.json({...profile.toJSON(), avatar: avatar})
-    } catch (e) {
-        res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', e })
-    }
-})
-
-// /api/profile/
+// /api/profile/self
 router.post('/self', [
-    authMiddleware,
-    check('name', 'Введите имя').exists(),
-    check('email', 'Некорректный email').isEmail(),
-    ], async (req, res) => {
-    try {
-        let profile = await Profile.findOne({ userId: req.user.userId });
-
-        profile.name = req.body.name;
-        profile.secondName = req.body.secondName;
-        profile.status = req.body.status;
-        profile.birthday = req.body.birthday;
-        profile.city = req.body.city;
-        profile.email = req.body.email;
-
-        await profile.save();
-        res.json(profile);
-    } catch (e) {
-        res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', e })
-    }
-})
+        authMiddleware,
+        check('name', 'Введите имя').exists(),
+        check('email', 'Некорректный email').isEmail(),
+    ], ProfileProxy.setMyProfile)
 
 // /api/profile/
 router.post('/self/editAvatar', [
     authMiddleware
 ], async (req, res) => {
     try {
-        const profile = await Profile.findOne({ userId: req.user.userId });
+        const profile = await ProfileModel.findOne({ userId: req.user.userId });
         let avatar = await ProfileAvatar.findOne({ profileId: profile.id });
 
         if (!avatar) {
