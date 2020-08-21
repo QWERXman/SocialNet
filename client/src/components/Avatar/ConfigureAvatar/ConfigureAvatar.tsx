@@ -4,7 +4,6 @@ import {AvatarProps, BigHead} from "@bigheads/core";
 import {Button, Form, Spin} from "antd";
 import { Row, Col } from 'antd';
 import ProfileService from "service/profile";
-import {IProfileAvatar} from "entities/ProfileAvatar";
 import {setProfileAvatar} from "store/actions/pages/Profile/profileActions";
 import Fields from './Fields/Fields'
 import {IStore} from 'store/store';

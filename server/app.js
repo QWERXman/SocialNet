@@ -25,8 +25,6 @@ app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/profile', require('./routes/profileRoutes'))
 app.use('/api/post', require('./routes/postRoutes'))
 app.use('/api/friends', require('./routes/friendsRoutes'))
-// app.use('/api/link', require('./routes/link.routes'))
-// app.use('/t', require('./routes/redirect.routes'))
 
 if (process.env.NODE_ENV === 'production') {
     app.use('/', express.static(path.join(__dirname, 'client', 'build')))

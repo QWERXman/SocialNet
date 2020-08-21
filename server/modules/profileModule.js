@@ -1,6 +1,7 @@
 const BaseModule = require("./base");
 const Profile = require("../classes/Profile");
 const ProfileAvatar = require("../models/ProfileAvatar");
+const Avatar = require("../classes/Avatar");
 
 class ProfileModule extends BaseModule {
     async getMyProfile() {
@@ -28,6 +29,27 @@ class ProfileModule extends BaseModule {
 
             await profile.save();
             this.res.json(profile.toJSON());
+        } catch (e) {
+            this.res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', e });
+        }
+    }
+
+    async editAvatar() {
+        try {
+            const profile = await new Profile(this.req.user.userId).fillFromDB();
+            const avatar = await new Avatar(profile.id).fillFromDB();
+            await avatar.set(this.req.body).save();
+            this.res.json(avatar.toJSON());
+        } catch (e) {
+            this.res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', e })
+        }
+    }
+
+    async listWithoutSelf() {
+        try {
+            const profile = await new Profile(this.req.user.userId).fillFromDB();
+            const list = await profile.listWithoutSelf();
+            this.res.json(list);
         } catch (e) {
             this.res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', e })
         }
