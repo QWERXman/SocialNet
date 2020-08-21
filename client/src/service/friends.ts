@@ -5,7 +5,8 @@ interface IAddFriend {
 }
 
 export const FriendsService = {
-    allUsers: () => Service.get('api/friends/all_users/'),
+    findList: () => Service.get('api/friends/all_users/'),
+    myFriends: () => Service.get('api/friends/my_friends/'),
     outgoingRequests: () => Service.get('api/friends/outgoing_requests'),
     incomingRequests: () => Service.get('api/friends/incoming_requests'),
 

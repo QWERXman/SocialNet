@@ -8,7 +8,7 @@ const FindFriends = () => {
     const [users, setUsers] = useState<IProfileEntity[]>([]);
 
     useEffect(() => {
-        FriendsService.allUsers().then((usersList: IProfileEntity[]) => {
+        FriendsService.findList().then((usersList: IProfileEntity[]) => {
             setUsers(usersList);
         })
     }, []);

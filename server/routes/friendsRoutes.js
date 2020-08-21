@@ -1,14 +1,13 @@
 const {check} = require('express-validator')
 const { Router } = require('express')
 const { authMiddleware } = require('../middleware/authMiddleware')
-const ProfileProxy = require('../proxy/profileProxy')
 const FriendsProxy = require('../proxy/friendsProxy')
 const router = Router()
 
 // /api/friends/all_users
 router.get('/all_users', [
     authMiddleware,
-], ProfileProxy.listWithoutSelf)
+], FriendsProxy.findFriendsList)
 
 // /api/friends/add_friend
 router.post('/add_friend', [
