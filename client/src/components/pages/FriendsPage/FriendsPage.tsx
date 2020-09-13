@@ -1,11 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Tabs} from "antd";
 import FriendsList from "components/pages/FriendsPage/FriendsList/FriendsList";
 import FindFriends from "./FindFriends/FindFriends";
 import OutgoingRequests from "./OutgoingRequests/OutgoingRequests";
 import FriendRequests from "./FriendRequests/FriendRequests";
+import useSocket from "../../../hooks/socket";
 
 const FriendsPage = () => {
+    const {subscribe, unsubscribe} = useSocket();
+    useEffect(() => {
+        subscribe('FromAPI', (data: any) => {
+            console.log(123)
+        });
+    }, [])
     return (
         <div>
             <Tabs defaultActiveKey="1">

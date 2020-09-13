@@ -1,10 +1,14 @@
 const express = require('express')
+const http = require("http");
 const config = require('config')
 const path = require('path')
 const mongoose = require('mongoose')
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const socketConfiguration = require("./socket");
 
 const app = express()
+const server = http.createServer(app);
 
 app.use(cors({
     origin:['http://localhost:3000', 'http://127.0.0.1:3000'],
@@ -20,6 +24,9 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.json({ extended: true }))
+app.use(cookieParser());
+
+socketConfiguration(server);
 
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/profile', require('./routes/profileRoutes'))
@@ -43,7 +50,7 @@ async function start() {
             useUnifiedTopology: true,
             useCreateIndex: true
         })
-        app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+        server.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
     } catch (e) {
         console.log('Server Error', e.message)
         process.exit(1)

@@ -35,8 +35,9 @@ const SingIn = () => {
             window.localStorage.uathToken = response.data.token;
             Axios.defaults.headers = {
                 'Authorization': 'Token ' + response.data.token,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             };
+
             window.location.reload();
         }).catch(() => {
             setShowError(true)

@@ -72,6 +72,7 @@ class AuthModule extends BaseModule {
                 { expiresIn: '1h' }
             )
 
+            this.res.cookie('token', token, { expires: new Date(Date.now() + 3600 * 1000), httpOnly: true });
             return this.res.json({ token, userId: user.id })
 
         } catch (e) {

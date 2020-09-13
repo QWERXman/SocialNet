@@ -21,12 +21,16 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.2.4",
+    "connect-mongodb-session": "^2.4.1",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "express-validator": "^6.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.1",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "concurrently": "^5.0.2",
