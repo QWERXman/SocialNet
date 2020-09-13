@@ -1,9 +1,13 @@
 import React from "react";
 
+interface IChat {
+    className: string
+}
 
-const Chat = () => {
+
+const Chat = ({className}: IChat) => {
     return (
-        <div>chat</div>
+        <div className={className}>chat</div>
     )
 }
 

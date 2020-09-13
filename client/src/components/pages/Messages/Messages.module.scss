@@ -1,0 +1,12 @@
+.messages {
+  display: flex;
+}
+
+.dialogs {
+  max-width: 300px;
+  min-width: 300px;
+}
+
+.chat {
+  flex-grow: 1;
+}
