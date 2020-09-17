@@ -15,10 +15,22 @@ class MessagesModule extends BaseModule {
         }
     }
 
+    async dialogMessages() {
+        try {
+            const messages = await Message.getDialogMessages(this.req.query.id)
+
+            this.res.json(messages);
+        } catch (e) {
+            this.res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', e })
+        }
+    }
+
     async create() {
         try {
+            const receiver = this.req.body.profileId;
+            const text = this.req.body.text;
             const myProfile = await new Profile(this.req.user.userId).fillFromDB();
-            const message = await new Message(myProfile.id).create(this.req.receiverId, this.req.text);
+            const message = await new Message(myProfile.id).create(receiver, text);
 
             this.res.json(message);
         } catch (e) {

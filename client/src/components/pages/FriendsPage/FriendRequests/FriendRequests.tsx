@@ -17,7 +17,14 @@ const FriendRequests = () => {
         <div>
             {users.map((user) => (
                 <Card style={{ marginTop: 16 }} key={user._id}>
-                    <Profile avatar={user.avatar} profileData={user}/>
+                    <Profile
+                        avatar={user.avatar}
+                        profileData={user}
+                        showAddFriend={true}
+                        showEmail={false}
+                        showCity={false}
+                        avatarWidth={100}
+                    />
                 </Card>
             ))}
         </div>

@@ -5,3 +5,40 @@
 .newDialog {
   margin-left: 2px;
 }
+
+.DialogItem {
+  display: flex;
+}
+
+.Avatar {
+  width: 38px;
+  margin-right: 4px;
+}
+
+.Receiver {
+  flex-grow: 1;
+}
+
+.Name {
+  font-weight: bold;
+  color: #fd044c;
+}
+
+.FromMe {
+  color: #ccc;
+}
+
+.Text {
+  color: #000;
+}
+
+.DialogsList {
+  height: 100%;
+}
+
+.ListItem:hover {
+  background: #eee;
+  box-shadow: 0 0 4px #eee;
+  cursor: pointer;
+}
+

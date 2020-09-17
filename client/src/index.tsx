@@ -5,8 +5,10 @@ import App from './components/App/App';
 import { Provider} from 'react-redux'
 import Axios from 'axios'
 import 'antd/dist/antd.css';
+import createSagaMiddleware from 'redux-saga'
 
 import createStore from 'store/store'
+import {applyMiddleware} from "redux";
 
 // import { login } from './service/auth'
 
@@ -16,6 +18,7 @@ if (window.localStorage.uathToken) {
         'Content-Type': 'application/json'
     }
 }
+
 
 const store = createStore()
 

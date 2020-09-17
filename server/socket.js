@@ -9,20 +9,27 @@ function socketConfiguration(server) {
     const io = socketIo(server);
 
     io.use(async function(socket, next) {
-        const handshake = socket.handshake;
-        const sessionId = socket.id;
-        const token = handshake.query.token;
-        if (!token) {
+        try {
+            const handshake = socket.handshake;
+            const sessionId = socket.id;
+            const token = handshake.query.token;
+            if (!token) {
+                return next(null, true);
+            }
+
+            const user = jwt.verify(token, config.get('jwtSecret'));
+            const myProfile = await new Profile(user.userId).fillFromDB();
+
+            await Session.deleteMany({userId: user.userId});
+
+            const session = new Session({sessionId, userId: user.userId, profileId: myProfile.id});
+            await session.save();
+
+            socket.user = session;
+            next();
+        } catch (e) {
             return next(null, true);
         }
-
-        const user = jwt.verify(token, config.get('jwtSecret'));
-        const myProfile = await new Profile(user.userId).fillFromDB();
-        const session = new Session({ sessionId, userId: user.userId, profileId: myProfile.id });
-        await session.save();
-
-        socket.user = session;
-        next();
     });
 
     connection(io);

@@ -11,20 +11,20 @@
     width: 200px;
 }
 
-.ProfileData-Separator {
+.Separator {
     height: 4px;
     border: 2px;
     border-radius: 14px;
     background: #fd044c;
 }
 
-.ProfileData-UserName {
+.UserName {
     font-size: 26px;
     flex-grow: 1;
 }
 
 
-.ProfileData-EditProfile {
+.EditProfile {
     height: 28px;
 }
 
@@ -36,4 +36,3 @@
 .PostCreator {
     margin-top: 12px;
 }
-

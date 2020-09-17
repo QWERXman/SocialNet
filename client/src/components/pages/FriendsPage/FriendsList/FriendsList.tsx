@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {IProfileEntity} from "entities/Profile";
 import {FriendsService} from "service/friends";
 import {Card} from "antd";
@@ -17,7 +17,13 @@ const FriendsList = () => {
         <div>
             {users.map((user) => (
                 <Card style={{ marginTop: 16 }} key={user._id}>
-                    <Profile avatar={user.avatar} profileData={user}/>
+                    <Profile
+                        avatar={user.avatar}
+                        profileData={user}
+                        showEmail={false}
+                        showCity={false}
+                        avatarWidth={100}
+                    />
                 </Card>
             ))}
         </div>

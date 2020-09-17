@@ -11,6 +11,7 @@ class Message {
         const dialog = await (new Dialog(this.profileId).create(receiver, text));
         const message = await (new MessagesModel({
             receiver,
+            text,
             sender: this.profileId,
             dialog: dialog.id,
             date: new Date()
@@ -19,9 +20,11 @@ class Message {
         return message
     }
 
-    async getDialogMessages(dialogId) {
-        return await MessagesModel.find({dialog: dialogId});
+    static async getDialogMessages(dialogId) {
+        const messages = await MessagesModel.find({dialog: dialogId});
+        return messages
     }
+
 }
 
 module.exports = Message

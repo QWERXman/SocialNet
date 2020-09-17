@@ -3,23 +3,32 @@ import {Button, Empty, List} from "antd";
 import {Input} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import styles from './Dialog.module.scss'
-import {MessagesService} from "../../../../service/messages";
+import DialogItem from "./DialogItem";
+import {useDispatch, useSelector} from "react-redux";
+import {IStore} from "store/store";
+import {getDialogs, setActiveDialog} from "store/actions/pages/Messages/messages";
+import {IDialogEntity} from "../../../../entities/Messages";
+
+
 interface IDialogs {
     className: string
 }
 
 const Dialogs = ({className}: IDialogs) => {
-    const [dialogs, setDialogs] = useState<String[]>([])
+    const dialogs = useSelector((store:IStore) => store.messages.dialogs)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        MessagesService.dialogsList().then(dialogs => {
-            setDialogs(dialogs)
-        })
+        dispatch(getDialogs())
     }, []);
 
     const search = useCallback(() => {
         console.log(123)
-    }, [])
+    }, []);
+
+    const selectDialog = useCallback((dialog:IDialogEntity) => {
+        dispatch(setActiveDialog(dialog))
+    }, []);
 
     const Header = (
         <div className={styles.header}>
@@ -32,7 +41,7 @@ const Dialogs = ({className}: IDialogs) => {
                 type="primary"
                 title="Start new dialog"
             >
-                <PlusOutlined translate/>
+                <PlusOutlined translate="true"/>
             </Button>
         </div>
     )
@@ -40,11 +49,21 @@ const Dialogs = ({className}: IDialogs) => {
     return (
         <div className={className}>
             <List
+                className={styles.DialogsList}
                 size="large"
                 header={Header}
                 bordered
                 dataSource={dialogs}
-                renderItem={item => <List.Item>{item}</List.Item>}
+
+                renderItem={
+                    item =>
+                        <List.Item className={styles.ListItem} onClick={() => selectDialog(item)}>
+                            <DialogItem
+                                text={item.text}
+                                receiver={item.receiver}
+                                fromMe={item.lastMessageFromMe}/>
+                        </List.Item>
+                }
                 locale={{emptyText: <Empty description={'No dialogs yet'} />}}
             />
         </div>

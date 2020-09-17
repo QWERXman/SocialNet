@@ -10,7 +10,7 @@ import User from "components/User/User";
 import {isAuthenticated, logout} from "service/auth";
 import Profile from "service/profile";
 
-import './App.css';
+import styles from './App.module.scss';
 import {setProfileData} from "../../store/actions/pages/Profile/profileActions";
 import {useDispatch} from "react-redux";
 
@@ -41,17 +41,17 @@ const App = () => {
     }
 
     return (
-        <div>
-            <div className="HeaderLine"/>
-            <div className="AppContainer">
-                <div className="Header">
-                    <div className="AppName">SN</div>
+        <div className={styles.App}>
+            <div className={styles.HeaderLine}/>
+            <div className={styles.AppContainer}>
+                <div className={styles.Header}>
+                    <div className={styles.AppName}>SN</div>
                     <User />
                 </div>
                 <Router history={history}>
-                    <div className="ContentContainer">
-                        <div className="Routes"><Routes items={RoutesItems}/></div>
-                        <div className="ContentArea"><ContentArea/></div>
+                    <div className={styles.ContentContainer}>
+                        <div className={styles.Routes}><Routes items={RoutesItems}/></div>
+                        <div className={styles.ContentArea}><ContentArea/></div>
                     </div>
                 </Router>
             </div>

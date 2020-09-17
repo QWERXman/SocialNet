@@ -8,10 +8,11 @@ import {IStore} from "store/store";
 
 interface IAvatarProps {
     configurable?: boolean,
-    config?: AvatarProps
+    config?: AvatarProps,
+    className?: string
 }
 
-const Avatar = ({configurable=false, config}: IAvatarProps) => {
+const Avatar = ({configurable=false, config, className=''}: IAvatarProps) => {
     const [modalVisible, setModalVisible] = useState(false);
     const selfAvatar = useSelector((store: IStore) => store.profile.avatar);
 
@@ -27,7 +28,7 @@ const Avatar = ({configurable=false, config}: IAvatarProps) => {
     }, []);
 
     return (
-        <div className="Avatar">
+        <div className={className + ' Avatar'}>
             <Tooltip
                 placement="bottom"
                 overlayStyle={tooltipStyle}

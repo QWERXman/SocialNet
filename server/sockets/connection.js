@@ -12,7 +12,7 @@ function connection(io) {
             console.log("Client disconnected " + myProfile.model.name);
         });
 
-        addListeners(socket)
+        addListeners(socket, io)
     });
 
 

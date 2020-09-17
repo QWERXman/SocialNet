@@ -1,27 +1,17 @@
-import React, {useEffect, useState} from "react";
-import useSocket from 'hooks/socket'
+import React from "react";
 import Dialogs from "./Dialogs/Dialogs";
 import Chat from "./Chat/Chat";
 import styles from './Messages.module.scss';
+import {useSelector} from "react-redux";
+import {IStore} from "store/store";
 
 const MessagesPage = () => {
-    const [response, setResponse] = useState("");
-    const {subscribe, unsubscribe, socket} = useSocket();
-
-    useEffect(() => {
-        subscribe('FromAPI', (data: any) => {
-            setResponse(data);
-        });
-    }, []);
-
-    const click = () => {
-        socket.emit('asdasd', 'qwe')
-    }
+    const activeDialog = useSelector((store: IStore) => store.messages.activeDialog)
 
     return (
         <div className={styles.messages}>
             <Dialogs className={styles.dialogs}/>
-            <Chat className={styles.chat}/>
+            {activeDialog && <Chat className={styles.chat} activeDialog={activeDialog}/>}
         </div>
     )
 }
