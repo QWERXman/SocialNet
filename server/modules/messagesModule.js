@@ -2,6 +2,8 @@ const BaseModule = require("./base");
 const Profile = require("../classes/Profile");
 const Dialog = require("../classes/Dialog");
 const Message = require("../classes/Message");
+const getIO = require('../helpers/common')
+const Session = require('../models/Session')
 
 class MessagesModule extends BaseModule {
     async dialogsList() {
@@ -27,11 +29,17 @@ class MessagesModule extends BaseModule {
 
     async create() {
         try {
-            const receiver = this.req.body.profileId;
+            const receiverId = this.req.body.profileId;
             const text = this.req.body.text;
             const myProfile = await new Profile(this.req.user.userId).fillFromDB();
-            const message = await new Message(myProfile.id).create(receiver, text);
+            const message = await new Message(myProfile.id).create(receiverId, text);
 
+            const io = getIO(this.req)
+            const receiverSession = (await Session.findOne({ profileId: myProfile.id })).sessionId;
+            const mySession = (await Session.findOne({ profileId: receiverId })).sessionId;
+
+            io.sockets.sockets[mySession] && io.sockets.sockets[mySession].emit('NewMessage', message)
+            io.sockets.sockets[receiverSession] && io.sockets.sockets[receiverSession].emit('NewMessage', message)
             this.res.json(message);
         } catch (e) {
             this.res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова', e })

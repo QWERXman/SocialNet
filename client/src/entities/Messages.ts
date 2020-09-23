@@ -6,7 +6,7 @@ export interface IDialogEntity {
     text: string,
     date?: moment.Moment,
     lastMessageFromMe: boolean
-    _id?: string
+    _id: string
 }
 
 export interface IMessage {
@@ -14,5 +14,6 @@ export interface IMessage {
     text: string,
     date: moment.Moment,
     receiver: IProfileEntity,
-    sender: string
+    sender: string,
+    dialog: string
 }

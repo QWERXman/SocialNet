@@ -13,7 +13,6 @@ const WriteMessageModal = ({hideModal, profile}: IWriteMessageModal) => {
     const [loaderVisible, setLoaderVisible] = useState(false);
 
     const handleSendMessage = useCallback((message) => {
-        setLoaderVisible(true);
         MessagesService.sendMessage({text: message.text, profileId: profile._id}).then(() => {
             setLoaderVisible(false);
             hideModal();

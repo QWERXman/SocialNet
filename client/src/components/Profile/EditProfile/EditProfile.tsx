@@ -2,6 +2,7 @@ import React, {useCallback, useState} from "react";
 import {Button, Modal} from "antd";
 import EditProfileForm from "../EditProfileForm/EditProfileForm";
 import { EditOutlined } from "@ant-design/icons";
+import {modalZIndex} from "../../../constants/common";
 
 const EditProfile = () => {
     const [modalVisible, setModalVisible] = useState(false)
@@ -30,6 +31,7 @@ const EditProfile = () => {
                 visible={modalVisible}
                 footer={null}
                 onCancel={handleCancel}
+                zIndex={modalZIndex}
             >
                 <EditProfileForm closeModal={handleCancel}/>
             </Modal>

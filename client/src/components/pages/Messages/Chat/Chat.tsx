@@ -1,14 +1,15 @@
-import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from "react";
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {Button, Input} from "antd";
 import cx from 'classnames';
 import styles from './Chat.module.scss'
-import {SendOutlined} from "@ant-design/icons";
+import {SendOutlined, UpCircleOutlined} from "@ant-design/icons";
 import useSocket from "hooks/socket";
 import {useDispatch, useSelector} from "react-redux";
 import {IStore} from 'store/store';
-import {IDialogEntity, IMessage} from "../../../../entities/Messages";
-import {newMessage} from "../../../../store/actions/pages/Messages/messages";
-import Avatar from "../../../Avatar/Avatar";
+import {IDialogEntity, IMessage} from "entities/Messages";
+import {newMessage} from "store/actions/pages/Messages/messages";
+import Avatar from "components/Avatar/Avatar";
+import ProfileCard from "components/Profile/ProfileCard/ProfileCard";
 
 interface IChat {
     className: string,
@@ -17,10 +18,10 @@ interface IChat {
 
 
 const Chat = ({className, activeDialog}: IChat) => {
-    const elementForScrollRef: any = useRef();
-    const messages = useSelector((store:IStore) => store.messages.messages);
+    const allMessages = useSelector((store:IStore) => store.messages.messages);
     const myProfile = useSelector((store:IStore) => store.profile);
     const receiverProfile = activeDialog.receiver;
+    const messages = allMessages && allMessages[activeDialog._id];
 
     const profiles = {
         [myProfile._id]: myProfile,
@@ -47,21 +48,21 @@ const Chat = ({className, activeDialog}: IChat) => {
         });
     }, []);
 
-    useEffect(() => {
-        elementForScrollRef.current.scrollIntoView(false)
-    }, [messages]);
-
     return (
         <div className={cx(className, styles.Chat)}>
 
             <div className={styles.Header}>
                 <div className={styles.HeaderName}>{receiverProfile.name + ' ' + receiverProfile.secondName}</div>
-                <Avatar config={receiverProfile.avatar} configurable={false} className={styles.Avatar}/>
+                <ProfileCard
+                    className={styles.Avatar}
+                    avatar={receiverProfile.avatar}
+                    profile={receiverProfile}
+                    configurable={false}/>
             </div>
 
             <div className={styles.MessagesList}>
                 {messages && messages.map((item, index) => {
-                    const matchesPreviousSender = index > 0 && messages[index - 1].sender === item.sender;
+                    const matchesPreviousSender = index < messages.length - 1 && messages[index + 1].sender === item.sender;
                     return (
                         <div key={item._id} className={cx(styles.Message, {
                             [styles.MatchesPreviousSender]: !matchesPreviousSender
@@ -69,7 +70,9 @@ const Chat = ({className, activeDialog}: IChat) => {
                             <div className={styles.MessageOverlay}>
                                 <div className={styles.Avatar}>
                                     {!matchesPreviousSender &&
-                                        <Avatar config={profiles[item.sender].avatar} configurable={false}/>
+                                        <Avatar
+                                            config={profiles[item.sender].avatar}
+                                            configurable={false}/>
                                     }
                                 </div>
                                 <div className={styles.MessageData}>
@@ -82,13 +85,12 @@ const Chat = ({className, activeDialog}: IChat) => {
                         </div>
                     )
                 })}
-                <div ref={elementForScrollRef}></div>
             </div>
 
             <div className={styles.WriteMessage}>
                 <Input className={styles.Input} placeholder="Write a message..." allowClear value={text} onChange={onChangeText}/>
                 <Button className={styles.SendButton} onClick={sendMessage}>
-                    <SendOutlined translate="true"/>
+                    <UpCircleOutlined translate="true"/>
                 </Button>
             </div>
         </div>

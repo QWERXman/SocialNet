@@ -6,14 +6,15 @@ import {IProfileEntity} from "entities/Profile";
 import Profile from "../Profile";
 
 interface IProfileCard {
+    className?: string,
     avatar?: AvatarProps,
     configurable: boolean,
     profile: IProfileEntity
 }
 
-const ProfileCard = ({avatar, configurable, profile}: IProfileCard) => {
+const ProfileCard = ({avatar, configurable, profile, className}: IProfileCard) => {
     return (
-        <div>
+        <div className={className}>
             <Popover
                 arrowPointAtCenter
                 placement="topLeft"

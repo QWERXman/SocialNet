@@ -6,15 +6,18 @@ const mongoose = require('mongoose')
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const socketConfiguration = require("./socket");
+const socketIo = require("socket.io");
 
 const app = express()
 const server = http.createServer(app);
 
-app.use(cors({
-    origin:['http://localhost:3000', 'http://127.0.0.1:3000'],
-    credentials:true
-}));
-
+app.use(cors(
+    // {
+    // origin:['http://localhost:3000', 'http://127.0.0.1:3000', 'http://192.168.0.3:3000'],
+    // credentials:true
+// }
+));
+app.options('*', cors())
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "http://localhost:3000");
     res.header('Access-Control-Allow-Headers', true);
@@ -26,7 +29,9 @@ app.use(function (req, res, next) {
 app.use(express.json({ extended: true }))
 app.use(cookieParser());
 
-socketConfiguration(server);
+const io = socketIo(server);
+server.io = io;
+socketConfiguration(io);
 
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/profile', require('./routes/profileRoutes'))

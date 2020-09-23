@@ -1,12 +1,10 @@
 const jwt = require("jsonwebtoken");
 const Profile = require("./classes/Profile");
 const Session = require("./models/Session");
-const socketIo = require("socket.io");
 const config = require('config')
 const connection = require("./sockets/connection");
 
-function socketConfiguration(server) {
-    const io = socketIo(server);
+function socketConfiguration(io) {
 
     io.use(async function(socket, next) {
         try {

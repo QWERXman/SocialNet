@@ -10,7 +10,7 @@ const MessagesPage = () => {
 
     return (
         <div className={styles.messages}>
-            <Dialogs className={styles.dialogs}/>
+            <Dialogs className={styles.dialogs} activeDialog={activeDialog}/>
             {activeDialog && <Chat className={styles.chat} activeDialog={activeDialog}/>}
         </div>
     )

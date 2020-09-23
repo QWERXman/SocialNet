@@ -3,7 +3,6 @@ import {
     GET_DIALOGS, GET_DIALOGS_FAILED,
     GET_DIALOGS_SUCCEEDED, NEW_MESSAGE,
     SET_ACTIVE_DIALOG,
-    SET_MESSAGES
 } from "store/actions/pages/Messages/messagesActionTypes";
 import {IMessagesAction} from "store/actions/pages/Messages/messages";
 import {IDialogEntity, IMessage} from "entities/Messages";
@@ -11,14 +10,16 @@ import {IDialogEntity, IMessage} from "entities/Messages";
 export interface IMessagesStore {
     dialogs?: IDialogEntity[],
     activeDialog?: IDialogEntity,
-    messages?: IMessage[],
+    messages?: {
+        [key: string]: IMessage[]
+    },
     loading?: boolean
 }
 
 const initialState: IMessagesStore = {
     dialogs: [],
     activeDialog: undefined,
-    messages: [],
+    messages: {},
     loading: false
 };
 
@@ -45,12 +46,32 @@ export default (state = initialState, action: IMessagesAction) => {
             return {
                 ...state,
                 activeDialog: action.activeDialog,
-                messages: []
             };
         case NEW_MESSAGE:
+            if (!action.message || !state.dialogs || !state.activeDialog) {
+                return state;
+            }
+
+            const dialogId = action.message.dialog
+
+            const updatedDialog = state.dialogs.find(item => item._id === dialogId) || state.dialogs[0]
+            updatedDialog.text = action.message.text;
+            // @ts-ignore
+            updatedDialog.lastMessageFromMe = action.message.receiver === state.activeDialog.receiver._id;
+            const updatedDialogs = state.dialogs.filter(item => item._id !== dialogId)
+
             return {
                 ...state,
-                messages: state.messages ? [...state.messages, action.message] : [action.message]
+                dialogs: [
+                    updatedDialog,
+                    ...updatedDialogs,
+                ],
+                messages: {
+                    ...state.messages,
+                    [dialogId]: state.messages && state.messages[dialogId]
+                        ? [action.message, ...state.messages[dialogId]]
+                        : [action.message]
+                }
             };
         case GET_DIALOG_MESSAGES_FAILED:
             return {
@@ -58,9 +79,16 @@ export default (state = initialState, action: IMessagesAction) => {
                 messages: []
             };
         case GET_DIALOG_MESSAGES_SUCCEEDED:
+            if (!state.activeDialog) {
+                return state;
+            }
+
             return {
                 ...state,
-                messages: action.messages
+                messages: {
+                    ...state.messages,
+                    [state.activeDialog._id]: action.messages
+                }
             };
         default:
             return state;

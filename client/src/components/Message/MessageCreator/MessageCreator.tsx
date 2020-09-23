@@ -2,7 +2,7 @@ import React, {useCallback, useRef, useState} from "react";
 import {Button, Modal} from "antd";
 import WriteMessageModal from "../WriteMessageModal/WriteMessageModal";
 import {IProfileEntity} from "entities/Profile";
-
+import {modalZIndex} from 'constants/common'
 interface IMessageCreator {
     profile: IProfileEntity
 }
@@ -18,7 +18,6 @@ const MessageCreator = ({profile}: IMessageCreator) => {
         setModalVisible(false)
     }, []);
 
-
     return (
         <div>
             <Button
@@ -29,6 +28,7 @@ const MessageCreator = ({profile}: IMessageCreator) => {
             </Button>
             <Modal
                 title="Create post"
+                zIndex={modalZIndex}
                 visible={modalVisible}
                 footer={null}
                 onCancel={handleCancel}

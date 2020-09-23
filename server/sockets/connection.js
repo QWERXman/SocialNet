@@ -3,6 +3,10 @@ const addListeners = require("./addListeners");
 
 function connection(io) {
     io.on("connection", async (socket) => {
+        if(!socket.user) {
+            return;
+        }
+
         const myProfile = await new Profile(socket.user.userId).fillFromDB();
         console.log("New client connected " + myProfile.model.name);
 
@@ -14,8 +18,6 @@ function connection(io) {
 
         addListeners(socket, io)
     });
-
-
 }
 
 module.exports = connection;

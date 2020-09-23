@@ -8,18 +8,22 @@ import {useDispatch, useSelector} from "react-redux";
 import {IStore} from "store/store";
 import {getDialogs, setActiveDialog} from "store/actions/pages/Messages/messages";
 import {IDialogEntity} from "../../../../entities/Messages";
-
+import cx from 'classnames'
 
 interface IDialogs {
-    className: string
+    className: string,
+    activeDialog?: IDialogEntity,
 }
 
-const Dialogs = ({className}: IDialogs) => {
+const Dialogs = ({className, activeDialog}: IDialogs) => {
     const dialogs = useSelector((store:IStore) => store.messages.dialogs)
+    const allMessages = useSelector((store:IStore) => store.messages.messages)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getDialogs())
+        if (!dialogs || !dialogs.length) {
+            dispatch(getDialogs())
+        }
     }, []);
 
     const search = useCallback(() => {
@@ -27,8 +31,9 @@ const Dialogs = ({className}: IDialogs) => {
     }, []);
 
     const selectDialog = useCallback((dialog:IDialogEntity) => {
-        dispatch(setActiveDialog(dialog))
-    }, []);
+        const hasMassages = !!(allMessages && allMessages[dialog._id])
+        dispatch(setActiveDialog(dialog, hasMassages))
+    }, [allMessages]);
 
     const Header = (
         <div className={styles.header}>
@@ -57,7 +62,12 @@ const Dialogs = ({className}: IDialogs) => {
 
                 renderItem={
                     item =>
-                        <List.Item className={styles.ListItem} onClick={() => selectDialog(item)}>
+                        <List.Item
+                            className={cx(styles.ListItem, {
+                                [styles.ActiveItem]: item._id === (activeDialog && activeDialog._id)
+                            })}
+                            onClick={() => selectDialog(item)}
+                        >
                             <DialogItem
                                 text={item.text}
                                 receiver={item.receiver}

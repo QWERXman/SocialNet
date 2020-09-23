@@ -6,7 +6,8 @@ export interface IMessagesAction extends IBaseActionType {
     dialogs?: IDialogEntity[],
     activeDialog?: IDialogEntity,
     messages?: IMessage[],
-    message?: IMessage
+    message?: IMessage,
+    hasMassages?: boolean
 }
 
 export const getDialogs = () : IMessagesAction => {
@@ -20,9 +21,10 @@ export const newMessage = (message: IMessage) : IMessagesAction => {
     }
 }
 
-export const setActiveDialog = (dialog:IDialogEntity) => {
+export const setActiveDialog = (dialog:IDialogEntity, hasMassages: boolean) => {
     return {
         type: SET_ACTIVE_DIALOG,
-        activeDialog: dialog
+        activeDialog: dialog,
+        hasMassages
     }
 }

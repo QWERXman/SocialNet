@@ -25,6 +25,10 @@ function* setActiveDialog(action: IMessagesAction) {
         if(!action.activeDialog) {
             throw new Error('Не выбран диалог');
         }
+        if (action.hasMassages) {
+            return;
+        }
+
         const messages = yield call(MessagesService.dialogMessages, action.activeDialog._id);
         yield put({type: GET_DIALOG_MESSAGES_SUCCEEDED, messages});
 

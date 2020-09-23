@@ -4,6 +4,7 @@ import {Button, Modal, Tooltip} from "antd";
 import ConfigureAvatar from "./ConfigureAvatar/ConfigureAvatar";
 import {useSelector} from "react-redux";
 import {IStore} from "store/store";
+import {modalZIndex} from "constants/common";
 
 
 interface IAvatarProps {
@@ -65,6 +66,7 @@ const Avatar = ({configurable=false, config, className=''}: IAvatarProps) => {
                     visible={modalVisible}
                     footer={null}
                     onCancel={handleCancel}
+                    zIndex={modalZIndex}
                 >
                     <ConfigureAvatar />
                 </Modal>

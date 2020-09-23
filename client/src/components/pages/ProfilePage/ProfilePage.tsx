@@ -12,7 +12,7 @@ const ProfilePage = () => {
 
     return (
         <div className="ProfilePage">
-            <Profile profileData={profileData} avatar={profileData.avatar}/>
+            <Profile profileData={profileData} avatar={profileData.avatar} showSendMessage={false} showPostCreator={true}/>
             <PostsList profileId={profileData._id}/>
         </div>
     );
