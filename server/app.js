@@ -1,8 +1,8 @@
-const express = require('express')
+const express = require('express');
 const http = require("http");
-const config = require('config')
-const path = require('path')
-const mongoose = require('mongoose')
+const config = require('config');
+const path = require('path');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const socketConfiguration = require("./socket");
@@ -12,10 +12,10 @@ const app = express()
 const server = http.createServer(app);
 
 app.use(cors(
-    // {
-    // origin:['http://localhost:3000', 'http://127.0.0.1:3000', 'http://192.168.0.3:3000'],
-    // credentials:true
-// }
+    {
+        origin:['http://localhost:3000', 'http://127.0.0.1:3000'],
+        credentials:true
+    }
 ));
 app.options('*', cors())
 app.use(function (req, res, next) {

@@ -3,18 +3,18 @@ import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from "redux-saga";
 
-import rootReducer from './rootReducer';
+import {rootReducer} from './rootReducer';
 import RootSaga from "./sagas";
 
-import {IMessagesStore} from "./reducers/pages/Messages/messages";
+import {IProfileState} from "./common/profile/state";
+import {IMessagesState} from "./common/messages/state";
 
-export interface IRootStore {
-    profile: IProfileEntity
-    messages: IMessagesStore
+export interface IRootState {
+    profile: IProfileState
+    messages: IMessagesState
 }
 
 const sagaMiddleware = createSagaMiddleware()
-
 
 export const store = createStore(
     rootReducer,
