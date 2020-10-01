@@ -8,10 +8,9 @@ import ContentArea from "components/ContentArea/ContentArea";
 import Login from "components/pages/Login/Login";
 import User from "components/User/User";
 import {isAuthenticated, logout} from "service/auth";
-import Profile from "service/profile";
 
 import styles from './App.module.scss';
-import {setProfileData} from "../../store/actions/pages/Profile/profileActions";
+import {fetchProfileDataAction} from "../../store2/common/profile/actionCreators";
 import {useDispatch} from "react-redux";
 
 if (window.localStorage.uathToken) {
@@ -26,11 +25,7 @@ const App = () => {
 
     useEffect(() => {
         if (isAuthenticated()) {
-            Profile.getSelf().then((response) => {
-                dispatch(setProfileData(response));
-            }).catch(() => {
-                logout();
-            });
+            dispatch(fetchProfileDataAction());
         }
     }, [])
 

@@ -5,30 +5,26 @@ import styles from './Chat.module.scss'
 import {SendOutlined, UpCircleOutlined} from "@ant-design/icons";
 import useSocket from "hooks/socket";
 import {useDispatch, useSelector} from "react-redux";
-import {IStore} from 'store/store';
 import {IDialogEntity, IMessage} from "entities/Messages";
 import {newMessage} from "store/actions/pages/Messages/messages";
 import Avatar from "components/Avatar/Avatar";
 import ProfileCard from "components/Profile/ProfileCard/ProfileCard";
+import {IRootState} from "store2/store";
+import {IDialog} from "store2/common/messages/state";
+import {selectMyProfile} from "store2/common/profile/selectors";
 
 interface IChat {
     className: string,
-    activeDialog: IDialogEntity
+    activeDialog: IDialog
 }
 
 
 const Chat = ({className, activeDialog}: IChat) => {
-    const allMessages = useSelector((store:IStore) => store.messages.messages);
-    const myProfile = useSelector((store:IStore) => store.profile);
+    const dispatch = useDispatch();
+    const allMessages = useSelector((store:IRootState) => store.dialogs.messages);
+    const myProfile = useSelector(selectMyProfile);
     const receiverProfile = activeDialog.receiver;
     const messages = allMessages && allMessages[activeDialog._id];
-
-    const profiles = {
-        [myProfile._id]: myProfile,
-        [receiverProfile._id]: receiverProfile,
-    }
-
-    const dispatch = useDispatch();
 
     const [text, setText] = useState<string>('');
     const {subscribe, socket} = useSocket();
@@ -47,6 +43,15 @@ const Chat = ({className, activeDialog}: IChat) => {
             dispatch(newMessage(message));
         });
     }, []);
+
+    if (!myProfile) {
+        return null;
+    }
+    const profiles = {
+        [myProfile._id]: myProfile,
+        [receiverProfile._id]: receiverProfile,
+    }
+
 
     return (
         <div className={cx(className, styles.Chat)}>

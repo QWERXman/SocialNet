@@ -11,7 +11,7 @@ import {IMessagesState} from "./common/messages/state";
 
 export interface IRootState {
     profile: IProfileState
-    messages: IMessagesState
+    dialogs: IMessagesState
 }
 
 const sagaMiddleware = createSagaMiddleware()

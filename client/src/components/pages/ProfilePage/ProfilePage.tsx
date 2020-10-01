@@ -1,19 +1,24 @@
 import React from "react";
 import {useSelector} from 'react-redux';
-import {IStore} from 'store/store';
 import PostsList from "../../Post/PostsList/PostsList";
 
-import './ProfilePage.css'
+import './ProfilePage.module.scss'
 import Profile from "../../Profile/Profile";
+import {selectMyProfile} from "store2/common/profile/selectors";
 
+import styles from './ProfilePage.module.scss'
 
 const ProfilePage = () => {
-    const profileData = useSelector((store: IStore) => store.profile);
+    const myProfileData = useSelector(selectMyProfile);
+
+    if (!myProfileData) {
+        return null;
+    }
 
     return (
-        <div className="ProfilePage">
-            <Profile profileData={profileData} avatar={profileData.avatar} showSendMessage={false} showPostCreator={true}/>
-            <PostsList profileId={profileData._id}/>
+        <div className={styles.ProfilePage}>
+            <Profile profileData={myProfileData} avatar={myProfileData.avatar} showSendMessage={false} showPostCreator={true}/>
+            <PostsList profileId={myProfileData._id}/>
         </div>
     );
 }

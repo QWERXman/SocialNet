@@ -3,15 +3,15 @@ import {LoadingState} from "../../state";
 import {IProfileData} from "../profile/state";
 
 export interface IMessagesState {
-    dialogs?: IDialogEntity[],
-    activeDialog?: IDialogEntity,
-    messages?: {
+    dialogs: IDialog[],
+    activeDialog?: IDialog,
+    messages: {
         [key: string]: IMessage[]
     },
-    loading?: LoadingState
+    loading: LoadingState
 }
 
-export interface IDialogEntity {
+export interface IDialog {
     receiver: IProfileData,
     text: string,
     date?: moment.Moment,

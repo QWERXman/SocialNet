@@ -7,6 +7,6 @@ interface IListFilter {
 }
 
 export const PostService = {
-    create: (data: IPostEntity) => Service.post('api/post/create/', data).then(res =>  res.data),
+    create: (data: IPostEntity) => Service.post('api/post/create/', data).then(res => res && res.data),
     list: (filter: IListFilter) => Service.get('api/post/list/', filter)
 }

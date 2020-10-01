@@ -5,24 +5,25 @@ import {PlusOutlined} from "@ant-design/icons";
 import styles from './Dialog.module.scss'
 import DialogItem from "./DialogItem";
 import {useDispatch, useSelector} from "react-redux";
-import {IStore} from "store/store";
 import {getDialogs, setActiveDialog} from "store/actions/pages/Messages/messages";
-import {IDialogEntity} from "../../../../entities/Messages";
 import cx from 'classnames'
+import {IDialog} from "store2/common/messages/state";
+import {setActiveDialogAction, fetchDialogsAction} from "store2/common/messages/actionCreators";
+import {IRootState} from "store2/store";
 
 interface IDialogs {
     className: string,
-    activeDialog?: IDialogEntity,
+    activeDialog?: IDialog,
 }
 
 const Dialogs = ({className, activeDialog}: IDialogs) => {
-    const dialogs = useSelector((store:IStore) => store.messages.dialogs)
-    const allMessages = useSelector((store:IStore) => store.messages.messages)
+    const dialogs = useSelector((store:IRootState) => store.dialogs.dialogs)
+    const allMessages = useSelector((store:IRootState) => store.dialogs.messages)
     const dispatch = useDispatch()
 
     useEffect(() => {
         if (!dialogs || !dialogs.length) {
-            dispatch(getDialogs())
+            dispatch(fetchDialogsAction())
         }
     }, []);
 
@@ -30,9 +31,9 @@ const Dialogs = ({className, activeDialog}: IDialogs) => {
         console.log(123)
     }, []);
 
-    const selectDialog = useCallback((dialog:IDialogEntity) => {
+    const selectDialog = useCallback((dialog: IDialog) => {
         const hasMassages = !!(allMessages && allMessages[dialog._id])
-        dispatch(setActiveDialog(dialog, hasMassages))
+        dispatch(setActiveDialogAction({dialog, hasMassages}))
     }, [allMessages]);
 
     const Header = (

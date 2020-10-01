@@ -1,12 +1,12 @@
 import React from "react";
-import {IProfileEntity} from "entities/Profile";
 import Avatar from "../../../Avatar/Avatar";
 
 import styles from './Dialog.module.scss'
+import {IProfileData} from "store2/common/profile/state";
 
 interface IDialogItem {
     text: string,
-    receiver: IProfileEntity,
+    receiver: IProfileData,
     fromMe: boolean
 }
 

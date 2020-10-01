@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {IProfileEntity} from "entities/Profile";
+
 import {FriendsService} from "service/friends";
 import {Card} from "antd";
 import Profile from "components/Profile/Profile";
+import {IProfileData} from "store2/common/profile/state";
 
 const FriendRequests = () => {
-    const [users, setUsers] = useState<IProfileEntity[]>([]);
+    const [users, setUsers] = useState<IProfileData[]>([]);
 
     useEffect(() => {
-        FriendsService.incomingRequests().then((usersList: IProfileEntity[]) => {
+        FriendsService.incomingRequests().then((usersList: IProfileData[]) => {
             setUsers(usersList);
         })
     }, []);

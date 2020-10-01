@@ -3,7 +3,7 @@ import {PostService} from "../../../service/post";
 import {IPostEntity} from "../../../entities/Post";
 import Post from "../Post";
 
-import "./PostsList.css"
+import styles from "./PostsList.module.scss"
 
 
 interface IPostsList {
@@ -22,7 +22,7 @@ const PostsList = ({profileId, pageSize}: IPostsList) => {
     },[profileId]);
 
     return (
-        <div>
+        <div className={styles.PostsList}>
             {
                 posts.map(post =>
                     <Post

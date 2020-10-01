@@ -1,7 +1,6 @@
 import {Action} from "redux";
-import {IDialogEntity, IMessage} from "./state";
+import {IDialog, IMessage} from "./state";
 import {LoadingState} from "../../state";
-import {NEW_MESSAGE} from "../../../store/actions/pages/Messages/messagesActionTypes";
 
 export enum MessagesActionTypes {
     FETCH_DIALOGS = 'messages/FETCH_DIALOGS',
@@ -21,7 +20,7 @@ export interface IFetchDialogsAction extends Action<MessagesActionTypes> {
 
 export interface IFetchDialogsSuccessAction extends Action<MessagesActionTypes> {
     type: MessagesActionTypes.FETCH_DIALOGS_SUCCESS;
-    payload: IDialogEntity[];
+    payload: IDialog[];
 }
 
 export interface IFetchDialogsFailedAction extends Action<MessagesActionTypes> {
@@ -44,7 +43,10 @@ export interface IFetchDialogMessagesFailedAction extends Action<MessagesActionT
 
 export interface ISetActiveDialogAction extends Action<MessagesActionTypes> {
     type: MessagesActionTypes.SET_ACTIVE_DIALOG,
-    payload: IDialogEntity
+    payload: {
+        dialog: IDialog,
+        hasMassages: boolean
+    }
 }
 
 export interface ISetDialogsLoadingStateAction extends Action<MessagesActionTypes> {

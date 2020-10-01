@@ -1,12 +1,12 @@
 import moment from "moment";
 import {AvatarProps} from "@bigheads/core";
-import {IProfileEntity} from "entities/Profile";
+import {IProfileData} from "../store2/common/profile/state";
 
 export interface IPostEntity {
     title: string,
     text: string,
     date?: moment.Moment,
     avatar: AvatarProps,
-    profile: IProfileEntity,
+    profile: IProfileData,
     _id?: string
 }

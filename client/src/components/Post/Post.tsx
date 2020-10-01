@@ -3,15 +3,15 @@ import {Card} from "antd";
 import Avatar from "components/Avatar/Avatar";
 import {AvatarProps} from "@bigheads/core";
 import moment from "moment";
-import {IProfileEntity} from "entities/Profile";
 import ProfileCard from "../Profile/ProfileCard/ProfileCard";
+import {IProfileData} from "../../store2/common/profile/state";
 
 
 interface IPost {
     title: string,
     text: string,
     avatar: AvatarProps,
-    profile: IProfileEntity,
+    profile: IProfileData,
     date?: moment.Moment
 }
 

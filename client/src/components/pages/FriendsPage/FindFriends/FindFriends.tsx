@@ -3,14 +3,15 @@ import {IProfileEntity} from "entities/Profile";
 import {FriendsService} from "service/friends";
 import {Card} from "antd";
 import Profile from "components/Profile/Profile";
+import {IProfileData} from "store2/common/profile/state";
 
 const FindFriends = () => {
-    const [users, setUsers] = useState<IProfileEntity[]>([]);
+    const [users, setUsers] = useState<IProfileData[]>([]);
 
     useEffect(() => {
-        FriendsService.findList().then((usersList: IProfileEntity[]) => {
+        FriendsService.findList().then((usersList: IProfileData[]) => {
             setUsers(usersList);
-        })
+        });
     }, []);
 
     return (

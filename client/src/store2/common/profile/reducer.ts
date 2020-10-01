@@ -13,8 +13,8 @@ export default (state = initialState, action: IProfileAction) => {
         case ProfileActionTypes.SET_PROFILE_DATA:
             return {
                 ...state,
-                profile: {
-                    ...state.profile,
+                data: {
+                    ...state.data,
                     ...action.payload,
                     birthday: action.payload.birthday && moment(action.payload.birthday)
                 }
@@ -22,8 +22,8 @@ export default (state = initialState, action: IProfileAction) => {
         case ProfileActionTypes.SET_PROFILE_AVATAR:
             return {
                 ...state,
-                profile: {
-                    ...state.profile,
+                data: {
+                    ...state.data,
                     avatar: action.payload
                 }
             };

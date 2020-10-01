@@ -2,14 +2,14 @@ import React from "react";
 import {Popover} from "antd";
 import Avatar from "components/Avatar/Avatar";
 import {AvatarProps} from "@bigheads/core";
-import {IProfileEntity} from "entities/Profile";
 import Profile from "../Profile";
+import {IProfileData} from "store2/common/profile/state";
 
 interface IProfileCard {
     className?: string,
     avatar?: AvatarProps,
     configurable: boolean,
-    profile: IProfileEntity
+    profile: IProfileData
 }
 
 const ProfileCard = ({avatar, configurable, profile, className}: IProfileCard) => {

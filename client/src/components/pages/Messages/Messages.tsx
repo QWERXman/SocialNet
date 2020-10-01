@@ -3,10 +3,10 @@ import Dialogs from "./Dialogs/Dialogs";
 import Chat from "./Chat/Chat";
 import styles from './Messages.module.scss';
 import {useSelector} from "react-redux";
-import {IStore} from "store/store";
+import {IRootState} from "../../../store2/store";
 
 const MessagesPage = () => {
-    const activeDialog = useSelector((store: IStore) => store.messages.activeDialog)
+    const activeDialog = useSelector((store: IRootState) => store.dialogs.activeDialog)
 
     return (
         <div className={styles.messages}>

@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import {ProfileActionTypes} from "./actionTypes";
 import ProfileService from "service/profile";
-import {setProfileLoadingState, setProfileData} from "./actionCreators";
+import {setProfileLoadingStateAction, setProfileDataAction} from "./actionCreators";
 import {LoadingState} from "../../state";
 
 
@@ -11,11 +11,11 @@ export function* profileSaga() {
 
 export function* fetchProfileData() {
     try {
-        yield put(setProfileLoadingState(LoadingState.LOADING));
+        yield put(setProfileLoadingStateAction(LoadingState.LOADING));
         const profile = yield call(ProfileService.getSelf);
-        yield put(setProfileData(profile));
-        yield put(setProfileLoadingState(LoadingState.LOADED));
+        yield put(setProfileDataAction(profile));
+        yield put(setProfileLoadingStateAction(LoadingState.LOADED));
     } catch (error) {
-        yield put(setProfileLoadingState(LoadingState.ERROR));
+        yield put(setProfileLoadingStateAction(LoadingState.ERROR));
     }
 }

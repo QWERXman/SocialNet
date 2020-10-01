@@ -1,15 +1,15 @@
 import Axios from 'axios'
-import Service from './base'
+import {DEFAULT_API_URL} from "./constants";
 
 export function registration(username: string, password: string) {
-    return Service.post('api/auth/register', {
+    return Axios.post(DEFAULT_API_URL + 'api/auth/register', {
         username: username,
         password: password
     })
 }
 
 export function login(username: string, password: string) {
-    return Service.post('api/auth/login', {
+    return Axios.post(DEFAULT_API_URL + 'api/auth/login', {
         username: username,
         password: password
     })
@@ -39,7 +39,7 @@ export function isAuthenticated() {
 }
 
 export function getToken(username: string, password: string, callback: Function) {
-    Service.post('api/auth/login', {
+    Axios.post(DEFAULT_API_URL + 'api/auth/login', {
         username: username,
         password: password
     }).then(response => {

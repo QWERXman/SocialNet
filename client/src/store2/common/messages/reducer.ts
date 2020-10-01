@@ -25,7 +25,7 @@ export default (state = initialState, action: IMessagesAction) => {
         case MessagesActionTypes.SET_ACTIVE_DIALOG:
             return {
                 ...state,
-                activeDialog: action.payload,
+                activeDialog: action.payload.dialog,
             };
         case MessagesActionTypes.FETCH_DIALOG_MESSAGES_SUCCESS:
             if (!state.activeDialog) {

@@ -44,9 +44,14 @@ function* fetchMessages({payload: dialogId}: IFetchDialogMessagesAction) {
     }
 }
 
-function* setActiveDialog({payload: dialog}: ISetActiveDialogAction) {
-    if (!dialog) {
+function* setActiveDialog({payload}: ISetActiveDialogAction) {
+    if (!payload.dialog) {
         return;
     }
-    yield put(fetchDialogMessagesAction(dialog._id));
+    // Чтоб не запрашивать один диалог несколько раз, если что сообщения придут по сокету
+    if (payload.hasMassages) {
+        return;
+    }
+
+    yield put(fetchDialogMessagesAction(payload.dialog._id));
 }

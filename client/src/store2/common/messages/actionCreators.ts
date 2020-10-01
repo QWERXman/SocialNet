@@ -10,14 +10,14 @@ import {
     MessagesActionTypes
 } from "./actionTypes";
 import {LoadingState} from "../../state";
-import {IDialogEntity, IMessage} from "./state";
+import {IDialog, IMessage} from "./state";
 
 
 export const fetchDialogsAction = (): IFetchDialogsAction => ({
     type: MessagesActionTypes.FETCH_DIALOGS,
 });
 
-export const fetchDialogsSuccessAction = (payload: IDialogEntity[]): IFetchDialogsSuccessAction => ({
+export const fetchDialogsSuccessAction = (payload: IDialog[]): IFetchDialogsSuccessAction => ({
     type: MessagesActionTypes.FETCH_DIALOGS_SUCCESS,
     payload
 });
@@ -40,7 +40,7 @@ export const fetchDialogMessagesFailedAction = (): IFetchDialogMessagesFailedAct
     type: MessagesActionTypes.FETCH_DIALOG_MESSAGES_FAILED
 });
 
-export const setActiveDialogAction = (payload: IDialogEntity): ISetActiveDialogAction => ({
+export const setActiveDialogAction = (payload: {dialog: IDialog, hasMassages: boolean}): ISetActiveDialogAction => ({
     type: MessagesActionTypes.SET_ACTIVE_DIALOG,
     payload
 });

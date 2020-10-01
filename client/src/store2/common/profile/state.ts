@@ -3,10 +3,9 @@ import moment from "moment";
 import {LoadingState} from "../../state";
 
 export interface IProfileState {
-    profile?: IProfileData,
+    data?: IProfileData,
     loading: LoadingState,
 }
-
 
 export interface IProfileData {
     _id: string;
@@ -16,7 +15,7 @@ export interface IProfileData {
     status?: string,
     birthday?: moment.Moment,
     city?: string,
-    avatar: IProfileAvatar | AvatarProps
+    avatar: AvatarProps
 }
 
 export interface IProfileAvatar {

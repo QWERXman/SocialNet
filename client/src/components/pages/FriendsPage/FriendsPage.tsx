@@ -7,12 +7,6 @@ import FriendRequests from "./FriendRequests/FriendRequests";
 import useSocket from "../../../hooks/socket";
 
 const FriendsPage = () => {
-    const {subscribe, unsubscribe} = useSocket();
-    useEffect(() => {
-        subscribe('FromAPI', (data: any) => {
-            console.log(123)
-        });
-    }, [])
     return (
         <div>
             <Tabs defaultActiveKey="1">

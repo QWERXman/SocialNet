@@ -3,18 +3,19 @@ import {Button, Col, Row} from "antd";
 import Avatar from "components/Avatar/Avatar";
 import EditProfile from "components/Profile/EditProfile/EditProfile";
 import PostCreator from "components/Post/PostCreator/PostCreator";
-import {IProfileEntity} from "entities/Profile";
 import moment from "moment";
 import {AvatarProps} from "@bigheads/core";
 import {useSelector} from "react-redux";
-import {IStore} from "store/store";
 
 import styles from "./Profile.module.scss"
 import {FriendsService} from "../../service/friends";
 import MessageCreator from "../Message/MessageCreator/MessageCreator";
+import {IRootState} from "../../store2/store";
+import {IProfileData} from "store2/common/profile/state";
+import {selectMyProfile} from "../../store2/common/profile/selectors";
 
 interface IProfile {
-    profileData: IProfileEntity,
+    profileData: IProfileData,
     avatar?: AvatarProps,
     showPostCreator?: boolean,
     showAddFriend?: boolean,
@@ -37,12 +38,9 @@ const Profile = ({
                      showEmail=true,
                      showSendMessage=true,
                      avatarWidth=200,
-
 }: IProfile) => {
-    const myProfileId = useSelector((store:IStore) => store.profile._id)
+    const myProfile = useSelector(selectMyProfile)
     const birthday = profileData.birthday && moment(profileData.birthday).format('DD.MM.YYYY')
-
-    const isMyProfile = myProfileId === profileData._id;
 
     const addFriend = useCallback(() => {
         FriendsService.addFriend({profileId: profileData._id})
@@ -51,6 +49,12 @@ const Profile = ({
     const sendMessage = useCallback(() => {
         FriendsService.addFriend({profileId: profileData._id})
     }, []);
+
+    if (!myProfile) {
+        return null;
+    }
+
+    const isMyProfile = myProfile._id === profileData._id;
 
     return (
         <div className={styles.Profile}>
