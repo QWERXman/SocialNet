@@ -3,8 +3,8 @@ import {Button, DatePicker, Form, Input, Divider, Spin} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {formItemLayout} from "components/pages/LoginPage/SingIn/SingIn";
 import Profile from "service/profile";
-import {setProfileData} from "store/actions/pages/Profile/profileActions";
-import {IStore} from 'store/store';
+import {selectMyProfile} from "store/common/profile/selectors";
+import {setProfileDataAction} from "store/common/profile/actionCreators";
 
 import "./EditProfileForm.css"
 
@@ -13,25 +13,30 @@ interface IProps {
 }
 
 const EditProfileForm = ({closeModal}: IProps) => {
-
-    const [loaderVisible, setLoaderVisible] = useState(false);
-
-    const name = useSelector((state: IStore) => state.profile.name);
-    const secondName = useSelector((state: IStore) => state.profile.secondName);
-    const status = useSelector((state: IStore) => state.profile.status);
-    const birthday = useSelector((state: IStore) => state.profile.birthday);
-    const city = useSelector((state: IStore) => state.profile.city);
-    const email = useSelector((state: IStore) => state.profile.email);
-
     const dispatch = useDispatch();
+    const [loaderVisible, setLoaderVisible] = useState(false);
+    const myProfile = useSelector(selectMyProfile);
 
     const handleSaveData = useCallback(async ({name, secondName, status, birthday, city, email}) => {
         setLoaderVisible(true);
         const profileData = await Profile.setSelf({_id: '', name, secondName, status, birthday, city, email});
-        dispatch(setProfileData(profileData));
+        dispatch(setProfileDataAction(profileData));
         setLoaderVisible(false);
         closeModal();
     }, [])
+
+    if (!myProfile) {
+        return null;
+    }
+
+    const {
+        name,
+        secondName,
+        status,
+        birthday,
+        city,
+        email,
+    } = myProfile;
 
     return (
         <div className="EditProfileForm">

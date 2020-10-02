@@ -10,9 +10,9 @@ import {useSelector} from "react-redux";
 import styles from "./Profile.module.scss"
 import {FriendsService} from "../../../service/friends";
 import MessageCreator from "../Message/MessageCreator/MessageCreator";
-import {IRootState} from "../../../store2/store";
-import {IProfileData} from "store2/common/profile/state";
-import {selectMyProfile} from "../../../store2/common/profile/selectors";
+import {IRootState} from "../../../store/store";
+import {IProfileData} from "store/common/profile/state";
+import {selectMyProfile} from "../../../store/common/profile/selectors";
 
 interface IProfile {
     profileData: IProfileData,

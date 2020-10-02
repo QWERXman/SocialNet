@@ -3,7 +3,7 @@ import Dialogs from "./Dialogs/Dialogs";
 import Chat from "./Chat/Chat";
 import styles from './MessengerPage.module.scss';
 import {useSelector} from "react-redux";
-import {IRootState} from "../../../store2/store";
+import {IRootState} from "../../../store/store";
 
 const MessengerPage = () => {
     const activeDialog = useSelector((store: IRootState) => store.dialogs.activeDialog)

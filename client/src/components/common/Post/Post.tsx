@@ -4,7 +4,7 @@ import Avatar from "components/common/Avatar/Avatar";
 import {AvatarProps} from "@bigheads/core";
 import moment from "moment";
 import ProfileCard from "../Profile/ProfileCard/ProfileCard";
-import {IProfileData} from "../../../store2/common/profile/state";
+import {IProfileData} from "../../../store/common/profile/state";
 
 
 interface IPost {

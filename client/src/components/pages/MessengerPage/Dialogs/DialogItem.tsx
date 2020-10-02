@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "../../../common/Avatar/Avatar";
 
 import styles from './Dialog.module.scss'
-import {IProfileData} from "store2/common/profile/state";
+import {IProfileData} from "store/common/profile/state";
 
 interface IDialogItem {
     text: string,

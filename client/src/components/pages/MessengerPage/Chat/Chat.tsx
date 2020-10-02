@@ -6,12 +6,12 @@ import {SendOutlined, UpCircleOutlined} from "@ant-design/icons";
 import useSocket from "hooks/socket";
 import {useDispatch, useSelector} from "react-redux";
 import {IDialogEntity, IMessage} from "entities/Messages";
-import {newMessage} from "store/actions/pages/Messages/messages";
 import Avatar from "components/common/Avatar/Avatar";
 import ProfileCard from "components/common/Profile/ProfileCard/ProfileCard";
-import {IRootState} from "store2/store";
-import {IDialog} from "store2/common/messages/state";
-import {selectMyProfile} from "store2/common/profile/selectors";
+import {IRootState} from "store/store";
+import {IDialog} from "store/common/messages/state";
+import {selectMyProfile} from "store/common/profile/selectors";
+import {receiveNewMessageAction} from "store/common/messages/actionCreators";
 
 interface IChat {
     className: string,
@@ -40,7 +40,7 @@ const Chat = ({className, activeDialog}: IChat) => {
 
     useEffect(() => {
         subscribe('NewMessage', (message:IMessage) => {
-            dispatch(newMessage(message));
+            dispatch(receiveNewMessageAction(message));
         });
     }, []);
 

@@ -3,7 +3,7 @@ import {Popover} from "antd";
 import Avatar from "components/common/Avatar/Avatar";
 import {AvatarProps} from "@bigheads/core";
 import Profile from "../Profile";
-import {IProfileData} from "store2/common/profile/state";
+import {IProfileData} from "store/common/profile/state";
 
 import styles from './ProfileCard.module.scss';
 

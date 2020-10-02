@@ -5,11 +5,10 @@ import {PlusOutlined} from "@ant-design/icons";
 import styles from './Dialog.module.scss'
 import DialogItem from "./DialogItem";
 import {useDispatch, useSelector} from "react-redux";
-import {getDialogs, setActiveDialog} from "store/actions/pages/Messages/messages";
 import cx from 'classnames'
-import {IDialog} from "store2/common/messages/state";
-import {setActiveDialogAction, fetchDialogsAction} from "store2/common/messages/actionCreators";
-import {IRootState} from "store2/store";
+import {IDialog} from "store/common/messages/state";
+import {setActiveDialogAction, fetchDialogsAction} from "store/common/messages/actionCreators";
+import {IRootState} from "store/store";
 
 interface IDialogs {
     className: string,

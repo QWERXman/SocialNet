@@ -3,8 +3,8 @@ import {AvatarProps, BigHead} from "@bigheads/core";
 import {Button, Modal, Tooltip} from "antd";
 import ConfigureAvatar from "./ConfigureAvatar/ConfigureAvatar";
 import {useSelector} from "react-redux";
-import {IStore} from "store/store";
 import {modalZIndex} from "constants/common";
+import {selectMyProfile} from "store/common/profile/selectors";
 
 
 interface IAvatarProps {
@@ -15,10 +15,7 @@ interface IAvatarProps {
 
 const Avatar = ({configurable=false, config, className}: IAvatarProps) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const selfAvatar = useSelector((store: IStore) => store.profile.avatar);
-
-    const avatar = config ? config : selfAvatar;
-    const tooltipStyle = configurable ? {} : {display: 'none'}
+    const myProfile = useSelector(selectMyProfile);
 
     const handleConfigureAvatar = useCallback(() => {
         setModalVisible(true);
@@ -27,6 +24,14 @@ const Avatar = ({configurable=false, config, className}: IAvatarProps) => {
     const handleCancel = useCallback(() => {
         setModalVisible(false);
     }, []);
+
+    if(!myProfile) {
+        return null;
+    }
+
+    const selfAvatar = myProfile.avatar;
+    const avatar = config ? config : selfAvatar;
+    const tooltipStyle = configurable ? {} : {display: 'none'}
 
     return (
         <div className={className}>

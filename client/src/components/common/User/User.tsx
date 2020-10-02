@@ -1,10 +1,10 @@
 import React, {useCallback} from "react";
 import { Popover, Button } from "antd";
 import { logout } from "service/auth";
-import {IStore} from 'store/store';
 import {useSelector} from "react-redux";
+import {selectMyProfile} from "store/common/profile/selectors";
+
 import "./User.css"
-import {selectMyProfile} from "../../../store2/common/profile/selectors";
 
 
 const User = () => {

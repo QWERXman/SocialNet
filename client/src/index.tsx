@@ -7,7 +7,7 @@ import Axios from 'axios'
 import 'antd/dist/antd.css';
 import createSagaMiddleware from 'redux-saga'
 
-import {store} from 'store2/store';
+import {store} from 'store/store';
 
 import {applyMiddleware} from "redux";
 

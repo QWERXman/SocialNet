@@ -10,7 +10,7 @@ import User from "components/common/User/User";
 import {isAuthenticated, logout} from "service/auth";
 
 import styles from './App.module.scss';
-import {fetchProfileDataAction} from "../../store2/common/profile/actionCreators";
+import {fetchProfileDataAction} from "../../store/common/profile/actionCreators";
 import {useDispatch} from "react-redux";
 
 if (window.localStorage.uathToken) {

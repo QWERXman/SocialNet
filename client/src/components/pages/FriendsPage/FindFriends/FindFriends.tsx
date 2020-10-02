@@ -3,7 +3,7 @@ import {IProfileEntity} from "entities/Profile";
 import {FriendsService} from "service/friends";
 import {Card} from "antd";
 import Profile from "components/common/Profile/Profile";
-import {IProfileData} from "store2/common/profile/state";
+import {IProfileData} from "store/common/profile/state";
 
 const FindFriends = () => {
     const [users, setUsers] = useState<IProfileData[]>([]);

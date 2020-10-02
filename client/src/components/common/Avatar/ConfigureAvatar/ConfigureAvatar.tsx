@@ -5,10 +5,10 @@ import {Button, Form, Spin} from "antd";
 import { Row, Col } from 'antd';
 import ProfileService from "service/profile";
 import Fields from './Fields/Fields';
-import {selectMyProfile} from "store2/common/profile/selectors";
+import {selectMyProfile} from "store/common/profile/selectors";
 
 import "./ConfigureAvatar.css"
-import {setProfileAvatarAction} from "store2/common/profile/actionCreators";
+import {setProfileAvatarAction} from "store/common/profile/actionCreators";
 
 const ConfigureAvatar = () => {
     const myProfile = useSelector(selectMyProfile);
