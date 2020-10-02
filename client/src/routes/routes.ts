@@ -1,10 +1,10 @@
 import { RoutesEntity } from "../entities/Routes"
 import { PROFILE, NEWS, FRIENDS, MESSAGES } from '../constants/routes'
 
-import News from "../components/pages/News/News"
+import News from "../components/pages/NewsPage/NewsPage"
 import Profile from "../components/pages/ProfilePage/ProfilePage"
 import Friends from "../components/pages/FriendsPage/FriendsPage"
-import Messages from "../components/pages/Messages/Messages"
+import Messages from "../components/pages/MessengerPage/MessengerPage"
 import {
     CommentOutlined,
     SmileOutlined,

@@ -1,6 +1,6 @@
 import {SET_PROFILE_AVATAR, SET_PROFILE_DATA} from "./profileActionTypes";
-import { IProfileEntity } from "entities/Profile";
-import { IBaseActionType } from "store/actions/base";
+import {IProfileEntity} from "entities/Profile";
+import {IBaseActionType} from "store/actions/base";
 import {AvatarProps} from "@bigheads/core";
 
 export interface ISetProfileData extends IBaseActionType{

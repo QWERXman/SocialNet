@@ -7,7 +7,7 @@ import {
     ISetProfileLoadingStateAction,
     ProfileActionTypes
 } from "./actionTypes";
-import {IProfileData} from "./state";
+import {IProfileAvatar, IProfileData} from "./state";
 import {LoadingState} from "../../state";
 
 export const fetchProfileDataAction = (): IFetchProfileDataAction => ({
@@ -30,6 +30,11 @@ export const fetchProfileDataFailedAction = (payload: IProfileData): IFetchProfi
 
 export const setProfileLoadingStateAction = (payload: LoadingState): ISetProfileLoadingStateAction => ({
     type: ProfileActionTypes.SET_PROFILE_LOADING_STATE,
+    payload
+});
+
+export const setProfileAvatarAction = (payload: IProfileAvatar): ISetProfileAvatarAction => ({
+    type: ProfileActionTypes.SET_PROFILE_AVATAR,
     payload
 });
 

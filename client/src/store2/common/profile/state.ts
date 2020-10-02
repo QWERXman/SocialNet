@@ -1,9 +1,11 @@
 import {AvatarProps} from "@bigheads/core";
 import moment from "moment";
 import {LoadingState} from "../../state";
+import {IPostEntity} from "entities/Post";
 
 export interface IProfileState {
     data?: IProfileData,
+    posts?: IPostEntity,
     loading: LoadingState,
 }
 

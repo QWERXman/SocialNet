@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import {ProfileActionTypes} from "./actionTypes";
 import ProfileService from "service/profile";
-import {setProfileLoadingStateAction, setProfileDataAction} from "./actionCreators";
+import {setProfileLoadingStateAction, setProfileDataAction, setProfileAvatarAction} from "./actionCreators";
 import {LoadingState} from "../../state";
 
 

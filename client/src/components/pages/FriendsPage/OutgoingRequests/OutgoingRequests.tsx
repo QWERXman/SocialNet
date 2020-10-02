@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import {FriendsService} from "service/friends";
 import {Card} from "antd";
-import Profile from "components/Profile/Profile";
+import Profile from "components/common/Profile/Profile";
 import {IProfileData} from "../../../../store2/common/profile/state";
 
 const OutgoingRequests = () => {

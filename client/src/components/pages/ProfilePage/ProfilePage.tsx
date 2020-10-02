@@ -1,9 +1,9 @@
 import React from "react";
 import {useSelector} from 'react-redux';
-import PostsList from "../../Post/PostsList/PostsList";
+import PostsList from "../../common/Post/PostsList/PostsList";
 
 import './ProfilePage.module.scss'
-import Profile from "../../Profile/Profile";
+import Profile from "../../common/Profile/Profile";
 import {selectMyProfile} from "store2/common/profile/selectors";
 
 import styles from './ProfilePage.module.scss'

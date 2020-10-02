@@ -3,10 +3,10 @@ import Axios from 'axios';
 import { Router } from "react-router-dom";
 import history from "constants/history";
 import { Routes as RoutesItems } from "routes/routes";
-import Routes from "components/Routes/Routes";
-import ContentArea from "components/ContentArea/ContentArea";
-import Login from "components/pages/Login/Login";
-import User from "components/User/User";
+import Routes from "components/common/Routes/Routes";
+import ContentArea from "components/common/ContentArea/ContentArea";
+import LoginPage from "components/pages/LoginPage/LoginPage";
+import User from "components/common/User/User";
 import {isAuthenticated, logout} from "service/auth";
 
 import styles from './App.module.scss';
@@ -31,7 +31,7 @@ const App = () => {
 
     if (!isAuthenticated()) {
         return (
-            <Login />
+            <LoginPage />
         )
     }
 
