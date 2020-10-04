@@ -1,5 +1,5 @@
 const ProfileModel = require('./../models/Profile')
-const ObjectId = require("Mongoose").Types.ObjectId;
+const ObjectId = require("mongoose").Types.ObjectId;
 
 
 class Profile {
