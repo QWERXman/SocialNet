@@ -1,4 +1,3 @@
-const ProfileModule = require('../modules/ProfileModule')
 const ObjectId = require("mongoose").Types.ObjectId;
 const FriendModel = require('../models/Friend')
 
