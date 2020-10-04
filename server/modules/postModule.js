@@ -3,7 +3,7 @@ const Profile = require("../classes/Profile");
 const Post = require("../classes/Post");
 const getIO = require("../helpers/common");
 const Session = require('../models/Session')
-const ObjectId = require("Mongoose").Types.ObjectId;
+const ObjectId = require("mongoose").Types.ObjectId;
 
 class PostModule extends BaseModule {
     async create() {
