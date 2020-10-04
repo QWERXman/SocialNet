@@ -5,6 +5,9 @@ import {Card} from "antd";
 import Profile from "components/common/Profile/Profile";
 import {IProfileData} from "../../../../store/common/profile/state";
 
+import styles from './OutgoingRequests.module.scss';
+
+
 const OutgoingRequests = () => {
     const [users, setUsers] = useState<IProfileData[]>([]);
 
@@ -15,11 +18,10 @@ const OutgoingRequests = () => {
     }, []);
 
     return (
-        <div>
+        <div className={styles.OutgoingRequests}>
             {users.map((user) => (
                 <Card style={{ marginTop: 16 }} key={user._id}>
                     <Profile
-                        avatar={user.avatar}
                         profileData={user}
                         showEmail={false}
                         showCity={false}

@@ -1,8 +1,11 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, Form, Input, Spin} from "antd";
 import {formItemLayout} from "components/pages/LoginPage/SingIn/SingIn";
-import {MessagesService} from "service/messages";
 import {IProfileEntity} from "../../../../entities/Profile";
+import {sendMessageAction} from "store/common/messages/actionCreators";
+import {useDispatch, useSelector} from "react-redux";
+import {IRootState} from "store/store";
+import {LoadingState} from "../../../../store/state";
 
 interface IWriteMessageModal {
     hideModal: Function,
@@ -10,18 +13,24 @@ interface IWriteMessageModal {
 }
 
 const WriteMessageModal = ({hideModal, profile}: IWriteMessageModal) => {
-    const [loaderVisible, setLoaderVisible] = useState(false);
+    const dispatch = useDispatch();
+    const loadingState = useSelector((state: IRootState) => state.dialogs.writeMessageLoader);
+    const [messageIsSend, setMessageIsSend] = useState(false);
 
-    const handleSendMessage = useCallback((message) => {
-        MessagesService.sendMessage({text: message.text, profileId: profile._id}).then(() => {
-            setLoaderVisible(false);
-            hideModal();
-        });
+    const handleSendMessage = useCallback(async (message) => {
+        dispatch(sendMessageAction({text: message.text, profileId: profile._id}));
+        setMessageIsSend(true);
     }, []);
+
+    useEffect(() => {
+        if (loadingState === LoadingState.LOADED && messageIsSend) {
+            hideModal();
+        }
+    }, [loadingState]);
 
     return (
         <div>
-            <Spin spinning={loaderVisible}>
+            <Spin spinning={loadingState === LoadingState.LOADING}>
                 <Form
                     {...formItemLayout}
                     name="basic"

@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {IProfileEntity} from "entities/Profile";
 import {FriendsService} from "service/friends";
 import {Card} from "antd";
 import Profile from "components/common/Profile/Profile";
 import {IProfileData} from "store/common/profile/state";
+
+import styles from './FindFriends.module.scss'
+
 
 const FindFriends = () => {
     const [users, setUsers] = useState<IProfileData[]>([]);
@@ -15,11 +17,10 @@ const FindFriends = () => {
     }, []);
 
     return (
-        <div>
+        <div className={styles.FindFriends}>
             {users.map((user) => (
                 <Card style={{ marginTop: 16 }} key={user._id}>
                     <Profile
-                        avatar={user.avatar}
                         profileData={user}
                         showAddFriend={true}
                         showEmail={false}

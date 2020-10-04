@@ -1,13 +1,18 @@
 import {call, put, takeEvery, takeLatest} from "redux-saga/effects";
 import {MessagesService} from "service/messages";
-import {IFetchDialogMessagesAction, ISetActiveDialogAction, MessagesActionTypes} from "./actionTypes";
+import {
+    IFetchDialogMessagesAction,
+    ISendMessageAction,
+    ISetActiveDialogAction,
+    MessagesActionTypes
+} from "./actionTypes";
 import {
     fetchDialogMessagesAction,
     fetchDialogMessagesFailedAction,
     fetchDialogMessagesSuccessAction,
     fetchDialogsFailedAction,
-    fetchDialogsSuccessAction,
-    setActiveDialogAction,
+    fetchDialogsSuccessAction, receiveNewMessageAction,
+    setActiveDialogAction, setLoadingStateWriteMessageModalAction,
     setMessagesLoadingState
 } from "./actionCreators";
 import {LoadingState} from "../../state";
@@ -17,6 +22,7 @@ export function* messagesSaga() {
     yield takeEvery(MessagesActionTypes.SET_ACTIVE_DIALOG, setActiveDialog);
     yield takeLatest(MessagesActionTypes.FETCH_DIALOGS, fetchDialogs);
     yield takeLatest(MessagesActionTypes.FETCH_DIALOG_MESSAGES, fetchMessages);
+    yield takeLatest(MessagesActionTypes.SEND_MESSAGE, sendMessage);
 }
 
 function* fetchDialogs() {
@@ -54,4 +60,15 @@ function* setActiveDialog({payload}: ISetActiveDialogAction) {
     }
 
     yield put(fetchDialogMessagesAction(payload.dialog._id));
+}
+
+function* sendMessage({payload}: ISendMessageAction) {
+    try {
+        yield put(setLoadingStateWriteMessageModalAction(LoadingState.LOADING));
+        const message = yield call(MessagesService.sendMessage, payload);
+        yield put(receiveNewMessageAction(message.data));
+        yield put(setLoadingStateWriteMessageModalAction(LoadingState.LOADED));
+    } catch (e) {
+        yield put(setLoadingStateWriteMessageModalAction(LoadingState.ERROR));
+    }
 }

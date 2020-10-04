@@ -10,6 +10,7 @@ import {selectMyProfile} from "store/common/profile/selectors";
 import "./ConfigureAvatar.css"
 import {setProfileAvatarAction} from "store/common/profile/actionCreators";
 
+// Нужен рефактор
 const ConfigureAvatar = () => {
     const myProfile = useSelector(selectMyProfile);
     const avatar = myProfile && myProfile.avatar || {};

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
+import React, {ChangeEvent, MutableRefObject, RefObject, useCallback, useEffect, useRef, useState} from "react";
 import {Button, Input} from "antd";
 import cx from 'classnames';
 import styles from './Chat.module.scss'
@@ -11,7 +11,7 @@ import ProfileCard from "components/common/Profile/ProfileCard/ProfileCard";
 import {IRootState} from "store/store";
 import {IDialog} from "store/common/messages/state";
 import {selectMyProfile} from "store/common/profile/selectors";
-import {receiveNewMessageAction} from "store/common/messages/actionCreators";
+import {receiveNewMessageAction, sendMessageAction} from "store/common/messages/actionCreators";
 
 interface IChat {
     className: string,
@@ -21,12 +21,14 @@ interface IChat {
 
 const Chat = ({className, activeDialog}: IChat) => {
     const dispatch = useDispatch();
+    const elementForScrollRef = useRef<HTMLDivElement>(null);
     const allMessages = useSelector((store:IRootState) => store.dialogs.messages);
     const myProfile = useSelector(selectMyProfile);
     const receiverProfile = activeDialog.receiver;
     const messages = allMessages && allMessages[activeDialog._id];
 
     const [text, setText] = useState<string>('');
+    const [hideMessagesList, setHideMessagesList] = useState<boolean>(true);
     const {subscribe, socket} = useSocket();
 
     const onChangeText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +36,7 @@ const Chat = ({className, activeDialog}: IChat) => {
     }, [])
 
     const sendMessage = useCallback(() => {
-        socket.emit('SendMessage', {text, to: activeDialog.receiver._id});
+        dispatch(sendMessageAction({text, profileId: activeDialog.receiver._id}));
         setText('');
     }, [text, activeDialog])
 
@@ -44,6 +46,13 @@ const Chat = ({className, activeDialog}: IChat) => {
         });
     }, []);
 
+    useEffect(() => {
+        if (elementForScrollRef && elementForScrollRef.current) {
+            elementForScrollRef.current.scrollIntoView(false);
+            setHideMessagesList(false);
+        }
+    }, [messages]);
+
     if (!myProfile) {
         return null;
     }
@@ -52,7 +61,6 @@ const Chat = ({className, activeDialog}: IChat) => {
         [receiverProfile._id]: receiverProfile,
     }
 
-
     return (
         <div className={cx(className, styles.Chat)}>
 
@@ -60,29 +68,33 @@ const Chat = ({className, activeDialog}: IChat) => {
                 <div className={styles.HeaderName}>{receiverProfile.name + ' ' + receiverProfile.secondName}</div>
                 <ProfileCard
                     className={styles.Avatar}
-                    avatar={receiverProfile.avatar}
                     profile={receiverProfile}
                     configurable={false}/>
             </div>
 
-            <div className={styles.MessagesList}>
+            <div className={cx(styles.MessagesList, {
+                    [styles.HideMessagesList]: hideMessagesList
+                }
+            )}>
                 {messages && messages.map((item, index) => {
-                    const matchesPreviousSender = index < messages.length - 1 && messages[index + 1].sender === item.sender;
+                    const startNextSender = index === 0 || messages[index - 1].sender !== item.sender;
                     return (
                         <div key={item._id} className={cx(styles.Message, {
-                            [styles.MatchesPreviousSender]: !matchesPreviousSender
+                            [styles.MatchesPreviousSender]: startNextSender
                         })}>
                             <div className={styles.MessageOverlay}>
                                 <div className={styles.Avatar}>
-                                    {!matchesPreviousSender &&
+                                    {startNextSender &&
                                         <Avatar
                                             config={profiles[item.sender].avatar}
                                             configurable={false}/>
                                     }
                                 </div>
                                 <div className={styles.MessageData}>
-                                    {!matchesPreviousSender &&
-                                        <div className={styles.Name}>{profiles[item.sender].name + ' ' + profiles[item.sender].secondName}</div>
+                                    {startNextSender &&
+                                        <div className={styles.Name}>{
+                                            profiles[item.sender].name + ' ' + profiles[item.sender].secondName
+                                        }</div>
                                     }
                                     <div className={styles.Text}>{item.text}</div>
                                 </div>
@@ -90,6 +102,8 @@ const Chat = ({className, activeDialog}: IChat) => {
                         </div>
                     )
                 })}
+
+                <div className={styles.ElementForScroll} ref={elementForScrollRef}></div>
             </div>
 
             <div className={styles.WriteMessage}>

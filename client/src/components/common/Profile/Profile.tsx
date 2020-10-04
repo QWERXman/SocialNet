@@ -4,19 +4,16 @@ import Avatar from "components/common/Avatar/Avatar";
 import EditProfile from "components/common/Profile/EditProfile/EditProfile";
 import PostCreator from "components/common/Post/PostCreator/PostCreator";
 import moment from "moment";
-import {AvatarProps} from "@bigheads/core";
 import {useSelector} from "react-redux";
 
 import styles from "./Profile.module.scss"
 import {FriendsService} from "../../../service/friends";
 import MessageCreator from "../Message/MessageCreator/MessageCreator";
-import {IRootState} from "../../../store/store";
 import {IProfileData} from "store/common/profile/state";
-import {selectMyProfile} from "../../../store/common/profile/selectors";
+import {selectMyProfile} from "store/common/profile/selectors";
 
 interface IProfile {
     profileData: IProfileData,
-    avatar?: AvatarProps,
     showPostCreator?: boolean,
     showAddFriend?: boolean,
     showStatus?: boolean,
@@ -29,7 +26,6 @@ interface IProfile {
 
 const Profile = ({
                      profileData,
-                     avatar,
                      showPostCreator,
                      showAddFriend,
                      showStatus=true,
@@ -55,7 +51,7 @@ const Profile = ({
     return (
         <div className={styles.Profile}>
             <div className={styles.ProfileAvatar} style={{width: avatarWidth}}>
-                <Avatar config={avatar} configurable={isMyProfile}/>
+                <Avatar config={profileData.avatar} configurable={isMyProfile}/>
             </div>
 
             <div className={styles.ProfileData}>

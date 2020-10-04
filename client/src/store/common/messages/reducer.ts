@@ -7,7 +7,8 @@ const initialState: IMessagesState = {
     dialogs: [],
     activeDialog: undefined,
     messages: {},
-    loading: LoadingState.LOADED
+    loading: LoadingState.LOADED,
+    writeMessageLoader: LoadingState.LOADED,
 };
 
 export default (state = initialState, action: IMessagesAction) => {
@@ -63,9 +64,8 @@ export default (state = initialState, action: IMessagesAction) => {
 
             const updatedDialog = state.dialogs.find(item => item._id === dialogId) || state.dialogs[0]
             updatedDialog.text = message.text;
-            // @ts-ignore
-            updatedDialog.lastMessageFromMe = message.receiver === state.activeDialog.receiver._id;
-            const updatedDialogs = state.dialogs.filter(item => item._id !== dialogId)
+            updatedDialog.lastMessageFromMe = message.receiver._id === state.activeDialog.receiver._id;
+            const updatedDialogs = state.dialogs.filter(item => item._id !== dialogId);
 
             return {
                 ...state,
@@ -76,11 +76,15 @@ export default (state = initialState, action: IMessagesAction) => {
                 messages: {
                     ...state.messages,
                     [dialogId]: state.messages && state.messages[dialogId]
-                        ? [message, ...state.messages[dialogId]]
+                        ? [...state.messages[dialogId], message]
                         : [message]
                 }
             };
-
+        case MessagesActionTypes.SET_LOADING_STATE_WRITE_MESSAGE_MODAL:
+            return {
+                ...state,
+                writeMessageLoader: action.payload
+            };
         default:
             return state;
     }

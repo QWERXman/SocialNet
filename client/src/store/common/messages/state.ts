@@ -8,7 +8,8 @@ export interface IMessagesState {
     messages: {
         [key: string]: IMessage[]
     },
-    loading: LoadingState
+    loading: LoadingState,
+    writeMessageLoader: LoadingState
 }
 
 export interface IDialog {

@@ -12,6 +12,7 @@ import {isAuthenticated, logout} from "service/auth";
 import styles from './App.module.scss';
 import {fetchProfileDataAction} from "../../store/common/profile/actionCreators";
 import {useDispatch} from "react-redux";
+import useSocket from "../../hooks/socket";
 
 if (window.localStorage.uathToken) {
     Axios.defaults.headers = {
@@ -22,6 +23,7 @@ if (window.localStorage.uathToken) {
 
 const App = () => {
     const dispatch = useDispatch();
+    useSocket();
 
     useEffect(() => {
         if (isAuthenticated()) {
@@ -34,6 +36,7 @@ const App = () => {
             <LoginPage />
         )
     }
+
 
     return (
         <div className={styles.App}>

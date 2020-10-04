@@ -21,8 +21,8 @@ const useSocket = () => {
         socket.on(eventKey, callback);
     }
 
-    const unsubscribe = (eventKey: string, callback: Function) => {
-        if (!eventKey || !callback) {
+    const unsubscribe = (eventKey: string, callback?: Function) => {
+        if (!eventKey) {
             return;
         }
         socket.removeListener(eventKey, callback);

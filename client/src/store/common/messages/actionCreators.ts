@@ -4,9 +4,9 @@ import {
     IFetchDialogMessagesSuccessAction,
     IFetchDialogsAction,
     IFetchDialogsFailedAction,
-    IFetchDialogsSuccessAction, IReceiveNewMessageAction,
+    IFetchDialogsSuccessAction, IReceiveNewMessageAction, ISendMessageAction,
     ISetActiveDialogAction,
-    ISetDialogsLoadingStateAction,
+    ISetDialogsLoadingStateAction, ISetLoadingStateWriteMessageModalAction,
     MessagesActionTypes
 } from "./actionTypes";
 import {LoadingState} from "../../state";
@@ -55,6 +55,16 @@ export const receiveNewMessageAction = (payload: IMessage): IReceiveNewMessageAc
     payload
 });
 
+export const sendMessageAction = (payload: {text: string, profileId: string}): ISendMessageAction => ({
+    type: MessagesActionTypes.SEND_MESSAGE,
+    payload
+});
+
+export const setLoadingStateWriteMessageModalAction = (payload: LoadingState): ISetLoadingStateWriteMessageModalAction => ({
+    type: MessagesActionTypes.SET_LOADING_STATE_WRITE_MESSAGE_MODAL,
+    payload
+});
+
 
 export type IMessagesAction =
     IFetchDialogsAction
@@ -66,5 +76,7 @@ export type IMessagesAction =
     | ISetActiveDialogAction
     | ISetDialogsLoadingStateAction
     | IReceiveNewMessageAction
+    | ISendMessageAction
+    | ISetLoadingStateWriteMessageModalAction
 
 

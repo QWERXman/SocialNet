@@ -5,7 +5,8 @@ import {ProfileActionTypes} from "./actionTypes";
 import {LoadingState} from "../../state";
 
 const initialState: IProfileState = {
-    loading: LoadingState.LOADED
+    loading: LoadingState.LOADED,
+    posts: []
 };
 
 export default (state = initialState, action: IProfileAction) => {
@@ -31,6 +32,19 @@ export default (state = initialState, action: IProfileAction) => {
             return {
                 ...state,
                 loading: action.payload
+            };
+        case ProfileActionTypes.FETCH_PROFILE_POSTS_SUCCESS:
+            return {
+                ...state,
+                posts: action.payload
+            };
+        case ProfileActionTypes.CREATE_NEW_POST:
+            return {
+                ...state,
+                posts: [
+                    action.payload,
+                    ...state.posts,
+                ]
             };
         default:
             return state;

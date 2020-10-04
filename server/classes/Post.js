@@ -1,4 +1,6 @@
 const PostModel = require('./../models/Post')
+const Profile = require("./Profile");
+const Avatar = require("./Avatar");
 
 class Post {
     constructor(profileId, model) {
@@ -10,7 +12,17 @@ class Post {
         const postModel = new PostModel({profileId, title, text, date});
         await postModel.save();
 
-        return new Post(profileId, postModel);
+        const profile = await Profile.findById(profileId);
+        const avatar = await Avatar.findById(profileId);
+
+        const post = {
+            ...postModel.toObject(),
+            profile: {
+                ...profile.toObject(),
+                avatar: avatar.toObject()
+            }
+        }
+        return post;
     }
 
     save() {
@@ -40,8 +52,8 @@ class Post {
         ]);
 
         const posts = (await postsAggregate.toArray()).map(post => {
-            post.avatar = post.avatar[0];
             post.profile = post.profile[0];
+            post.profile.avatar = post.avatar[0];
             return post;
         });
 

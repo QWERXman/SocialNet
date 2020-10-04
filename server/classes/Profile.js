@@ -13,6 +13,10 @@ class Profile {
         return this;
     }
 
+    static async findById(profileId) {
+        return ProfileModel.findById(profileId);
+    }
+
     get id() {
         return this.model._id;
     }

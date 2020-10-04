@@ -1,0 +1,11 @@
+.FriendsPage {
+  height: 100%;
+}
+
+.Tabs {
+  height: 100%;
+}
+
+.Tabs :global(.ant-tabs-content) {
+  height: 100%;
+}

@@ -31,6 +31,10 @@ class Avatar {
         return this;
     }
 
+    static async findById(profileId) {
+        return AvatarModel.findOne({ profileId });
+    }
+
     isFilled() {
         return !!this.model;
     }

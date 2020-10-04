@@ -1,6 +1,8 @@
 const BaseModule = require("./base");
 const Profile = require("../classes/Profile");
 const Post = require("../classes/Post");
+const getIO = require("../helpers/common");
+const Session = require('../models/Session')
 const ObjectId = require("Mongoose").Types.ObjectId;
 
 class PostModule extends BaseModule {
@@ -14,6 +16,10 @@ class PostModule extends BaseModule {
                 date: new Date(),
             })
 
+            const io = getIO(this.req);
+            const mySession = (await Session.findOne({ profileId: profile.id })).sessionId;
+
+            io.sockets.sockets[mySession].broadcast.emit('NewPostCreated', post);
             this.res.json(post);
 
         } catch (e) {

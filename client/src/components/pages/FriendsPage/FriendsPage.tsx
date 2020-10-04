@@ -4,12 +4,13 @@ import FriendsList from "components/pages/FriendsPage/FriendsList/FriendsList";
 import FindFriends from "./FindFriends/FindFriends";
 import OutgoingRequests from "./OutgoingRequests/OutgoingRequests";
 import FriendRequests from "./FriendRequests/FriendRequests";
-import useSocket from "../../../hooks/socket";
+
+import styles from './FriendsPage.module.scss';
 
 const FriendsPage = () => {
     return (
-        <div>
-            <Tabs defaultActiveKey="1">
+        <div className={styles.FriendsPage}>
+            <Tabs defaultActiveKey="1" className={styles.Tabs}>
                 <Tabs.TabPane tab="My friends" key="1">
                     <FriendsList />
                 </Tabs.TabPane>

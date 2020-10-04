@@ -8,10 +8,12 @@ import RootSaga from "./sagas";
 
 import {IProfileState} from "./common/profile/state";
 import {IMessagesState} from "./common/messages/state";
+import {INewsState} from "./common/news/state";
 
 export interface IRootState {
     profile: IProfileState
     dialogs: IMessagesState
+    news: INewsState
 }
 
 const sagaMiddleware = createSagaMiddleware()

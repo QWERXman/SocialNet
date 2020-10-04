@@ -12,6 +12,8 @@ export enum MessagesActionTypes {
     SET_ACTIVE_DIALOG = 'messages/SET_ACTIVE_DIALOG',
     SET_LOADING_STATE = 'messages/SET_LOADING_STATE',
     RECEIVE_NEW_MESSAGE = 'messages/RECEIVE_NEW_MESSAGE',
+    SEND_MESSAGE = 'messages/SEND_MESSAGE',
+    SET_LOADING_STATE_WRITE_MESSAGE_MODAL = 'messages/SET_LOADING_STATE_WRITE_MESSAGE_MODAL',
 }
 
 export interface IFetchDialogsAction extends Action<MessagesActionTypes> {
@@ -57,4 +59,17 @@ export interface ISetDialogsLoadingStateAction extends Action<MessagesActionType
 export interface IReceiveNewMessageAction extends Action<MessagesActionTypes> {
     type: MessagesActionTypes.RECEIVE_NEW_MESSAGE;
     payload: IMessage
+}
+
+export interface ISendMessageAction extends Action<MessagesActionTypes> {
+    type: MessagesActionTypes.SEND_MESSAGE;
+    payload: {
+        text: string,
+        profileId: string
+    }
+}
+
+export interface ISetLoadingStateWriteMessageModalAction extends Action<MessagesActionTypes> {
+    type: MessagesActionTypes.SET_LOADING_STATE_WRITE_MESSAGE_MODAL;
+    payload: LoadingState
 }

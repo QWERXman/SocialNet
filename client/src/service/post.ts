@@ -1,5 +1,5 @@
 import Service from './base'
-import {IPostEntity} from 'entities/Post'
+import {IPost} from "store/common/news/state";
 
 interface IListFilter {
     profileId?: string,
@@ -7,6 +7,6 @@ interface IListFilter {
 }
 
 export const PostService = {
-    create: (data: IPostEntity) => Service.post('api/post/create/', data).then(res => res && res.data),
+    create: (data: IPost) => Service.post('api/post/create/', data).then(res => res && res.data),
     list: (filter: IListFilter) => Service.get('api/post/list/', filter)
 }

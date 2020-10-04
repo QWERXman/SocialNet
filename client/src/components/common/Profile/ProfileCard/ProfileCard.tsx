@@ -10,23 +10,22 @@ import styles from './ProfileCard.module.scss';
 
 interface IProfileCard {
     className?: string,
-    avatar?: AvatarProps,
     configurable: boolean,
     profile: IProfileData,
 }
 
-const ProfileCard = ({avatar, configurable, profile, className}: IProfileCard) => {
+const ProfileCard = ({configurable, profile, className}: IProfileCard) => {
     return (
         <div className={className}>
             <Popover
                 arrowPointAtCenter
                 placement="topLeft"
                 content={
-                    <Profile profileData={profile} avatar={avatar}/>
+                    <Profile profileData={profile}/>
                 }
             >
                 <div>
-                    <Avatar config={avatar} configurable={configurable} className={styles.Avatar}/>
+                    <Avatar config={profile.avatar} configurable={configurable} className={styles.Avatar}/>
                 </div>
             </Popover>
         </div>

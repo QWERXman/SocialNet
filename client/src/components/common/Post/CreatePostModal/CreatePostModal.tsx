@@ -1,19 +1,28 @@
-import React, {useCallback, useState} from "react";
+import React, {MutableRefObject, RefObject, useCallback, useRef, useState} from "react";
 import {Button, DatePicker, Divider, Form, Input, Spin} from "antd";
 import {formItemLayout} from "../../../pages/LoginPage/SingIn/SingIn";
 import {PostService} from "../../../../service/post";
+import {IPost} from "../../../../store/common/news/state";
+import {useDispatch, useSelector} from "react-redux";
+import {createNewPostAction} from "../../../../store/common/profile/actionCreators";
+import {selectMyProfile} from "../../../../store/common/profile/selectors";
+import {FormInstance} from "antd/es/form";
 
 interface ICreatePostModal {
     closeModal: Function
 }
 
 const CreatePostModal = ({closeModal}:ICreatePostModal) => {
+    const dispatch = useDispatch();
+    const formRef: any = useRef();
     const [loaderVisible, setLoaderVisible] = useState(false);
 
     const handleSavePost = useCallback((post) => {
         setLoaderVisible(true);
-        PostService.create(post).then(() => {
+        PostService.create(post).then((post: IPost) => {
+            dispatch(createNewPostAction(post));
             setLoaderVisible(false);
+            formRef.current.resetFields();
             closeModal();
         });
     }, []);
@@ -23,6 +32,7 @@ const CreatePostModal = ({closeModal}:ICreatePostModal) => {
             <Spin spinning={loaderVisible}>
                 <Form
                     {...formItemLayout}
+                    ref={formRef}
                     name="basic"
                     onFinish={handleSavePost}>
                     <Form.Item

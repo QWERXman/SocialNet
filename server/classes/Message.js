@@ -21,7 +21,7 @@ class Message {
     }
 
     static async getDialogMessages(dialogId) {
-        const messages = await MessagesModel.find({dialog: dialogId}).sort({date: -1});
+        const messages = await MessagesModel.find({dialog: dialogId}).sort({date: 1});
         return messages
     }
 

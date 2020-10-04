@@ -1,26 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {PostService} from "../../../../service/post";
-import {IPostEntity} from "../../../../entities/Post";
+import React from "react";
 import Post from "../Post";
 
 import styles from "./PostsList.module.scss"
+import {IPost} from "store/common/news/state";
 
 
 interface IPostsList {
-    profileId?: string,
-    pageSize?: number
+    posts: IPost[],
 }
 
-const PostsList = ({profileId, pageSize}: IPostsList) => {
-
-    const [posts, setPosts] = useState<IPostEntity[]>([])
-
-    useEffect(() => {
-        PostService.list({profileId, pageSize}).then((posts: IPostEntity[]) => {
-            setPosts(posts || []);
-        })
-    },[profileId]);
-
+const PostsList = ({posts}: IPostsList) => {
+    console.log(posts)
     return (
         <div className={styles.PostsList}>
             {
@@ -30,7 +20,6 @@ const PostsList = ({profileId, pageSize}: IPostsList) => {
                         title={post.title}
                         text={post.text}
                         date={post.date}
-                        avatar={post.avatar}
                         profile={post.profile}
                     />
                 )

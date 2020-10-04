@@ -10,16 +10,15 @@ import {IProfileData} from "../../../store/common/profile/state";
 interface IPost {
     title: string,
     text: string,
-    avatar: AvatarProps,
     profile: IProfileData,
     date?: moment.Moment
 }
 
-const Post = ({title, text, avatar, profile}:IPost) => {
+const Post = ({title, text, profile}:IPost) => {
     return (
         <Card style={{ marginTop: 16 }}>
             <Card.Meta
-                avatar={<ProfileCard avatar={avatar} configurable={false} profile={profile}/>}
+                avatar={<ProfileCard configurable={false} profile={profile}/>}
                 title={title}
                 description={text}
             />
