@@ -1,6 +1,7 @@
 .Profile {
     display: flex;
     min-width: 450px;
+    flex-shrink: 0;
 }
 
 .ProfileData {

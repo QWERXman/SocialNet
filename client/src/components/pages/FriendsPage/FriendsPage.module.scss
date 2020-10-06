@@ -8,4 +8,17 @@
 
 .Tabs :global(.ant-tabs-content) {
   height: 100%;
+  flex-shrink: 0;
+}
+
+.Tabs :global(.ant-card){
+  flex-shrink: 0;
+}
+
+.Tabs :global(.ant-tabs-content-holder) {
+  height: 100%;
+}
+
+.Tabs :global(.ant-tabs-tabpane) {
+  height: 100%;
 }

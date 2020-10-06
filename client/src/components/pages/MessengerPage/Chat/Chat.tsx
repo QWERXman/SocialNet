@@ -40,6 +40,12 @@ const Chat = ({className, activeDialog}: IChat) => {
         setText('');
     }, [text, activeDialog])
 
+    const onKeyPress = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    }, [text, activeDialog]);
+
     useEffect(() => {
         subscribe('NewMessage', (message:IMessage) => {
             dispatch(receiveNewMessageAction(message));
@@ -107,7 +113,14 @@ const Chat = ({className, activeDialog}: IChat) => {
             </div>
 
             <div className={styles.WriteMessage}>
-                <Input className={styles.Input} placeholder="Write a message..." allowClear value={text} onChange={onChangeText}/>
+                <Input
+                    className={styles.Input}
+                    placeholder="Write a message..."
+                    allowClear
+                    value={text}
+                    onChange={onChangeText}
+                    onKeyPress={onKeyPress}
+                />
                 <Button className={styles.SendButton} onClick={sendMessage}>
                     <UpCircleOutlined translate="true"/>
                 </Button>
