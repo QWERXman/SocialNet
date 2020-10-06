@@ -48,8 +48,12 @@ const App = () => {
                 </div>
                 <Router history={history}>
                     <div className={styles.ContentContainer}>
-                        <div className={styles.Routes}><Routes items={RoutesItems}/></div>
-                        <div className={styles.ContentArea}><ContentArea/></div>
+                        <div className={styles.Routes}>
+                            <Routes items={RoutesItems}/>
+                        </div>
+                        <div className={styles.ContentArea}>
+                            <ContentArea/>
+                        </div>
                     </div>
                 </Router>
             </div>

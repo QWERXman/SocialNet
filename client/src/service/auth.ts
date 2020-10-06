@@ -15,19 +15,6 @@ export function login(username: string, password: string) {
     })
 }
 
-export function login1(username: string, password: string) {
-    getToken(username, password, (res: any) => {
-        window.localStorage.uathToken = res.token;
-        if (res.authenticated) {
-            Axios.defaults.headers = {
-                'Authorization': 'Token ' + res.token,
-                'Content-Type': 'application/json'
-            }
-            window.location.reload()
-        }
-    })
-}
-
 export function logout() {
     delete window.localStorage.uathToken;
     delete Axios.defaults.headers.Authorization;

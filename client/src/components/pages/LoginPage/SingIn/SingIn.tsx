@@ -38,7 +38,7 @@ const SingIn = () => {
                 'Content-Type': 'application/json',
             };
 
-            window.location.reload();
+            window.location.pathname = '/profile';
         }).catch(() => {
             setShowError(true)
         });
